@@ -1,8 +1,12 @@
 import { useState, useRef } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import useAuth from '../../contexts/AuthContext'
 
 export default function SignUp() {
   const [error, setError] = useState(null)
   const formRef = useRef(null)
+
+  const { singUp } = useAuth()
 
   const signUpHandler = (e) => {
     e.preventDefault()

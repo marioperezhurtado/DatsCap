@@ -5,7 +5,7 @@ import supabase from '../supabase'
 
 const AuthContext = createContext()
 
-export default useAuth = useContext(AuthContext)
+const useAuth = () => useContext(AuthContext)
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null)
@@ -43,3 +43,5 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={authValues}>{children}</AuthContext.Provider>
   )
 }
+
+export default useAuth
