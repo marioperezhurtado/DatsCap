@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { createContext, useContext } from 'react'
 
-import supabase from '../supabase'
+import { supabase } from '../supabase'
 
 const AuthContext = createContext()
 
@@ -9,13 +9,19 @@ const useAuth = () => useContext(AuthContext)
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  const signUp = ({ email, password }) => {
-    return supabase.auth.signUp({ email, password })
+  const signUp = async ({ email, password }) => {
+    const { error } = await supabase.auth.signUp({ email, password })
+    if (error) throw Error('Failed to create account')
   }
 
-  const signIn = ({ email, password }) => {
-    return supabase.auth.signInWithPassword({ email, password })
+  const signIn = async ({ email, password }) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+    if (error) throw Error('Failed to sign in')
   }
 
   const signOut = () => {
@@ -25,11 +31,18 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
+      setLoading(false)
     })
 
-    supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription }
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
+
+    return () => {
+      subscription?.unsubscribe()
+    }
   }, [])
 
   const authValues = {
@@ -40,7 +53,9 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={authValues}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authValues}>
+      {!loading && children}
+    </AuthContext.Provider>
   )
 }
 
