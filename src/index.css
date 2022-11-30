@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input {
+  padding: 0.2rem 0.5rem;
+}
+
+button {
+  padding: 0.2rem 0.5rem;
+}
