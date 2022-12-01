@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import useAuth from '../../contexts/AuthContext'
 
+import SocialLogin from '../../components/SocialLogin/SocialLogin'
+
 export default function SignUp() {
   const [success, setSuccess] = useState(null)
   const [validationError, setValidationError] = useState(null)
@@ -17,9 +19,7 @@ export default function SignUp() {
   } = useMutation({
     mutationFn: ({ email, password }) => signUp({ email, password }),
     onSuccess: () => {
-      setSuccess(
-        'Follow the link on the email we have sent you to complete creating your account'
-      )
+      setSuccess('Check your email for the confirmation link')
       formRef.current.reset()
     }
   })
@@ -46,6 +46,7 @@ export default function SignUp() {
         onSubmit={signUpHandler}
         className="flex flex-col max-w-sm gap-4 px-6 py-4 mx-auto border rounded-md border-zinc-600">
         <h1 className="text-xl font-bold text-center">Create an account</h1>
+        <SocialLogin />
         {success && <p className="text-green-500">{success}</p>}
         {validationError && <p className="text-red-500">{validationError}</p>}
         <div className="flex flex-col gap-1">
@@ -78,12 +79,12 @@ export default function SignUp() {
         </div>
         <button
           disabled={isLoading}
-          className="px-3 py-1 border rounded-md  border-zinc-600">
+          className="px-3 py-1 border rounded-md border-zinc-600">
           Create account
         </button>
         {signUpError && <p className="mt-4 text-red-500">{signUpError}</p>}
       </form>
-      <p className="text-center mt-4">
+      <p className="mt-4 text-center">
         Already have an Account?{' '}
         <span className="font-bold text-yellow-500">
           <Link to="/signin">Sign in</Link>

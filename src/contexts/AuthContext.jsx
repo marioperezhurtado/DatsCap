@@ -24,8 +24,16 @@ export function AuthProvider({ children }) {
     if (error) throw Error('Failed to sign in')
   }
 
-  const signOut = () => {
-    return supabase.auth.signOut()
+  const signInGithub = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'github'
+    })
+    if (error) throw Error('Failed to sign in with GitHub')
+  }
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut()
+    if (error) throw Error('Failed to sign out')
   }
 
   useEffect(() => {
@@ -49,6 +57,7 @@ export function AuthProvider({ children }) {
     session,
     signUp,
     signIn,
+    signInGithub,
     signOut
   }
 
