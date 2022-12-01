@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useAuth from '../../contexts/AuthContext'
 
 export default function SignUp() {
+  const [success, setSuccess] = useState(null)
   const [validationError, setValidationError] = useState(null)
   const formRef = useRef(null)
-  const navigate = useNavigate()
 
   const { signUp } = useAuth()
 
@@ -16,7 +16,12 @@ export default function SignUp() {
     mutate
   } = useMutation({
     mutationFn: ({ email, password }) => signUp({ email, password }),
-    onSuccess: () => navigate('/')
+    onSuccess: () => {
+      setSuccess(
+        'Follow the link on the email we have sent you to complete creating your account'
+      )
+      formRef.current.reset()
+    }
   })
 
   const signUpHandler = (e) => {
@@ -41,6 +46,7 @@ export default function SignUp() {
         onSubmit={signUpHandler}
         className="flex flex-col max-w-sm gap-4 px-6 py-4 mx-auto border rounded-md border-zinc-600">
         <h1 className="text-xl font-bold text-center">Create an account</h1>
+        {success && <p className="text-green-500">{success}</p>}
         {validationError && <p className="text-red-500">{validationError}</p>}
         <div className="flex flex-col gap-1">
           <label htmlFor="email">Email</label>
@@ -77,6 +83,12 @@ export default function SignUp() {
         </button>
         {signUpError && <p className="mt-4 text-red-500">{signUpError}</p>}
       </form>
+      <p className="text-center mt-4">
+        Already have an Account?{' '}
+        <span className="font-bold text-yellow-500">
+          <Link to="/signin">Sign in</Link>
+        </span>
+      </p>
     </div>
   )
 }

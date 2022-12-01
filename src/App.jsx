@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
+import AuthRoute from './components/AuthRoute/AuthRoute'
 
 import Home from './pages/Home/Home'
 import SignUp from './pages/SignUp/SignUp'
@@ -22,8 +23,22 @@ export default function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/signup"
+            element={
+              <AuthRoute>
+                <SignUp />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <AuthRoute>
+                <SignIn />
+              </AuthRoute>
+            }
+          />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>
