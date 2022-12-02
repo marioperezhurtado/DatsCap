@@ -3,6 +3,7 @@ import useDb from '../../contexts/DbContext'
 
 import Header from '../../layout/Header/Header'
 import Navbar from '../../layout/Navbar/Navbar'
+import Loader from '../../layout/Loader/Loader'
 import CapList from '../../components/CapList/CapList'
 
 export default function Home() {
@@ -22,7 +23,7 @@ export default function Home() {
       <>
         <Header />
         <Navbar />
-        <p>Loading...</p>
+        <Loader />
       </>
     )
   }
