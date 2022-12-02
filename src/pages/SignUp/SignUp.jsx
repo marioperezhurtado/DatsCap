@@ -52,7 +52,7 @@ export default function SignUp() {
       <form
         ref={formRef}
         onSubmit={signUpHandler}
-        className="flex flex-col max-w-sm gap-4 px-6 py-4 mx-auto border rounded-md border-zinc-600">
+        className="flex flex-col max-w-sm gap-4 px-6 py-4 mx-auto border rounded-md shadow-md border-zinc-600">
         <h1 className="text-xl font-bold text-center">Create an account</h1>
         <SocialLogin />
         {success && <p className="text-green-500">{success}</p>}
@@ -105,7 +105,7 @@ export default function SignUp() {
         </div>
         <button
           disabled={isLoading}
-          className="px-3 py-1 border rounded-md border-zinc-600">
+          className="px-3 py-1 transition-all border rounded-md shadow-md border-zinc-600 hover:bg-slate-500">
           Create account
         </button>
         {signUpError && (
@@ -114,7 +114,7 @@ export default function SignUp() {
       </form>
       <p className="mt-4 text-center">
         Already have an Account?{' '}
-        <span className="font-bold text-yellow-500">
+        <span className="font-bold text-yellow-500 underline">
           <Link to="/signin">Sign in</Link>
         </span>
       </p>
