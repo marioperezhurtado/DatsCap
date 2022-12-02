@@ -17,7 +17,13 @@ export default function SignUp() {
     error: signUpError,
     mutate
   } = useMutation({
-    mutationFn: ({ email, password }) => signUp({ email, password }),
+    mutationFn: ({ fullName, username, email, password }) =>
+      signUp({
+        fullName,
+        username,
+        email,
+        password
+      }),
     onSuccess: () => {
       setSuccess('Check your email for the confirmation link')
       formRef.current.reset()
@@ -27,16 +33,18 @@ export default function SignUp() {
   const signUpHandler = (e) => {
     e.preventDefault()
 
+    const fullName = formRef.current.fullName.value
+    const username = formRef.current.username.value
     const email = formRef.current.email.value
     const password = formRef.current.password.value
     const passwordRepeat = formRef.current.passwordRepeat.value
 
-    if (!email || !password || !passwordRepeat) {
+    if (!fullName || !username || !email || !password || !passwordRepeat) {
       setValidationError('There are missing fields')
       return
     }
 
-    mutate({ email, password })
+    mutate({ fullName, username, email, password })
   }
 
   return (
@@ -49,6 +57,24 @@ export default function SignUp() {
         <SocialLogin />
         {success && <p className="text-green-500">{success}</p>}
         {validationError && <p className="text-red-500">{validationError}</p>}
+        <div className="flex flex-col gap-1">
+          <label htmlFor="fullName">Full Name</label>
+          <input
+            type="text"
+            name="fullName"
+            autoComplete="your-full-name"
+            className="px-3 py-1 text-black rounded-md"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            autoComplete="your-username"
+            className="px-3 py-1 text-black rounded-md"
+          />
+        </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="email">Email</label>
           <input
@@ -82,7 +108,9 @@ export default function SignUp() {
           className="px-3 py-1 border rounded-md border-zinc-600">
           Create account
         </button>
-        {signUpError && <p className="mt-4 text-red-500">{signUpError}</p>}
+        {signUpError && (
+          <p className="mt-4 text-red-500">{signUpError.message}</p>
+        )}
       </form>
       <p className="mt-4 text-center">
         Already have an Account?{' '}

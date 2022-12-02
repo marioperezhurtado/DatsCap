@@ -11,8 +11,17 @@ export function AuthProvider({ children }) {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const signUp = async ({ email, password }) => {
-    const { error } = await supabase.auth.signUp({ email, password })
+  const signUp = async ({ fullName, username, email, password }) => {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+          username: username
+        }
+      }
+    })
     if (error) throw Error('Failed to create account')
   }
 
@@ -21,6 +30,7 @@ export function AuthProvider({ children }) {
       email,
       password
     })
+
     if (error) throw Error('Failed to sign in')
   }
 
