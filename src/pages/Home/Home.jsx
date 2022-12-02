@@ -1,18 +1,48 @@
+import { useQuery } from '@tanstack/react-query'
+import useDb from '../../contexts/DbContext'
+
 import Header from '../../layout/Header/Header'
+import Navbar from '../../layout/Navbar/Navbar'
+import CapList from '../../components/CapList/CapList'
 
 export default function Home() {
+  const { getCaps } = useDb()
+
+  const {
+    isLoading,
+    error,
+    data: caps
+  } = useQuery({
+    queryKey: ['allCaps'],
+    queryFn: getCaps
+  })
+
+  if (isLoading) {
+    return (
+      <>
+        <Header />
+        <Navbar />
+        <p>Loading...</p>
+      </>
+    )
+  }
+
+  if (error) {
+    return (
+      <>
+        <Header />
+        <Navbar />
+        <p className="text-red-500 mt-10 text-center">
+          Oops! Something went wrong...
+        </p>
+      </>
+    )
+  }
   return (
     <>
       <Header />
-      <nav>
-        <ul className="flex items-center gap-3 mx-auto mt-6 w-min">
-          <li className="px-2 border rounded-md border-zinc-600">Latest</li>
-          <li className="px-2 border rounded-md border-zinc-600">Trending</li>
-          <li className="px-2 border rounded-md border-zinc-600">Top</li>
-          <li className="px-2 border rounded-md border-zinc-600">Favorites</li>
-          <li className="px-2 border rounded-md border-zinc-600">Categories</li>
-        </ul>
-      </nav>
+      <Navbar />
+      <CapList caps={caps} />
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
 import { AuthProvider } from './contexts/AuthContext'
+import { DbProvider } from './contexts/DbContext'
 
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 
@@ -12,21 +13,23 @@ import NotFound from './pages/NotFound/NotFound'
 export default function App() {
   return (
     <AuthProvider>
-      <div className="box-border min-h-screen bg-neutral-800 text-slate-300">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </div>
+      <DbProvider>
+        <div className="box-border min-h-screen bg-neutral-800 text-slate-300">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </DbProvider>
     </AuthProvider>
   )
 }
