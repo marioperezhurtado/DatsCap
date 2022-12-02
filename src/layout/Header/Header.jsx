@@ -22,14 +22,14 @@ export default function Header() {
       <div className="flex gap-3">
         <button className="flex items-center gap-2 px-2 py-1 text-sm border rounded-md border-zinc-600 shadow-md">
           @mario123
-          <img src="secure.svg" alt="manage account" className="w-3 h-3" />
+          <img src="private.svg" alt="manage account" className="w-4 h-4" />
         </button>
         <button
           onClick={signOutHandler}
           disabled={isLoading}
           className="flex items-center gap-2 px-2 py-1 text-sm border rounded-md border-zinc-600 shadow-md">
           Logout
-          <img src="logout.svg" alt="logout" className="w-3 h-3" />
+          <img src="logout.svg" alt="logout" className="w-4 h-4" />
         </button>
       </div>
     </header>

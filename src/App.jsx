@@ -25,41 +25,26 @@ export default function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
+            <Route
+              path="/signup"
+              element={
+                <AuthRoute>
+                  <SignUp />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <AuthRoute>
+                  <SignIn />
+                </AuthRoute>
+              }
+            />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>
       </DbProvider>
-      <div className="box-border min-h-screen bg-neutral-800 text-slate-300">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <AuthRoute>
-                <SignUp />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="/signin"
-            element={
-              <AuthRoute>
-                <SignIn />
-              </AuthRoute>
-            }
-          />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </div>
     </AuthProvider>
   )
 }

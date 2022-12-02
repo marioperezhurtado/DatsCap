@@ -9,5 +9,7 @@ export default function CapList({ caps }) {
     </li>
   ))
 
-  return <ul className="mt-10 flex flex-col gap-5">{capItems}</ul>
+  return (
+    <ul className="mt-10 max-w-xl mx-auto flex flex-col gap-5">{capItems}</ul>
+  )
 }
