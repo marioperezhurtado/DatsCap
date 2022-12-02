@@ -34,6 +34,13 @@ export function AuthProvider({ children }) {
     if (error) throw Error('Failed to sign in')
   }
 
+  const signInGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google'
+    })
+    if (error) throw Error('Failed to sign in with GitHub')
+  }
+
   const signInGithub = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'github'
@@ -41,11 +48,11 @@ export function AuthProvider({ children }) {
     if (error) throw Error('Failed to sign in with Google')
   }
 
-  const signInGoogle = async () => {
+  const signInDiscord = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google'
+      provider: 'discord'
     })
-    if (error) throw Error('Failed to sign in with GitHub')
+    if (error) throw Error('Failed to sign in with Discord')
   }
 
   const signOut = async () => {
@@ -74,8 +81,9 @@ export function AuthProvider({ children }) {
     session,
     signUp,
     signIn,
-    signInGithub,
     signInGoogle,
+    signInGithub,
+    signInDiscord,
     signOut
   }
 

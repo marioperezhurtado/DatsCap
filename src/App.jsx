@@ -17,8 +17,8 @@ export default function App() {
   return (
     <AuthProvider>
       <DbProvider>
-        <div className="flex flex-col box-border min-h-screen bg-neutral-800 text-slate-300">
-          <div className="flex-grow">
+        <div className="box-border flex flex-col min-h-screen bg-neutral-800 text-slate-300">
+          <div className="flex-grow w-11/12 mx-auto">
             <Routes>
               <Route
                 path="/"
