@@ -1,7 +1,8 @@
 import CapItem from '../CapItem/CapItem'
 
 export default function CapList({ caps }) {
-  if (!caps || !caps.length) return <p>No caps found</p>
+  if (!caps || !caps.length)
+    return <p className="text-center mt-10">No caps found</p>
 
   const capItems = caps.map((c) => (
     <li key={c.id}>

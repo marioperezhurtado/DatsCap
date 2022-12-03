@@ -5,6 +5,7 @@ import Header from '../../layout/Header/Header'
 import Navbar from '../../layout/Navbar/Navbar'
 import Loader from '../../layout/Loader/Loader'
 import CapList from '../../components/CapList/CapList'
+import WriteCap from '../../components/WriteCap/WriteCap'
 
 export default function Home() {
   const { getCaps } = useDb()
@@ -24,6 +25,7 @@ export default function Home() {
         <Header />
         <Navbar />
         <Loader />
+        <WriteCap />
       </>
     )
   }
@@ -33,17 +35,20 @@ export default function Home() {
       <>
         <Header />
         <Navbar />
-        <p className="text-red-500 mt-10 text-center">
+        <p className="mt-10 text-center text-red-500">
           Oops! Something went wrong...
         </p>
+        <WriteCap />
       </>
     )
   }
+
   return (
     <>
       <Header />
       <Navbar />
       <CapList caps={caps} />
+      <WriteCap />
     </>
   )
 }

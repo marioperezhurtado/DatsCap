@@ -114,7 +114,7 @@ export default function SignUp() {
       </form>
       <p className="mt-4 text-center">
         Already have an Account?{' '}
-        <span className="font-bold text-yellow-500 underline">
+        <span className="font-bold text-purple-500 underline">
           <Link to="/signin">Sign in</Link>
         </span>
       </p>

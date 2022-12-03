@@ -65,7 +65,7 @@ export default function SignIn() {
       </form>
       <p className="mt-4 text-center">
         Need an Account?{' '}
-        <span className="font-bold text-yellow-500 underline">
+        <span className="font-bold text-purple-500 underline">
           <Link to="/signup">Sign up</Link>
         </span>
       </p>

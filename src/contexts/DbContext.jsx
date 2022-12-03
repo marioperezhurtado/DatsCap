@@ -17,8 +17,18 @@ export function DbProvider({ children }) {
     return data
   }
 
+  const writeCap = async ({ text, user_id }) => {
+    const { error } = await supabase.from('caps').insert({
+      text,
+      user_id
+    })
+
+    if (error) throw Error('Failed to write cap')
+  }
+
   const dbValues = {
-    getCaps
+    getCaps,
+    writeCap
   }
 
   return <DbContext.Provider value={dbValues}>{children}</DbContext.Provider>

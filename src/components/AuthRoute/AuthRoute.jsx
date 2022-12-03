@@ -2,9 +2,9 @@ import useAuth from '../../contexts/AuthContext'
 import { Navigate } from 'react-router-dom'
 
 export default function PrivateRoute({ children }) {
-  const { session } = useAuth()
+  const { currentUser } = useAuth()
 
-  if (session) return <Navigate to="/" />
+  if (currentUser) return <Navigate to="/" />
 
   return children
 }
