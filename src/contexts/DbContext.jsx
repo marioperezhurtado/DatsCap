@@ -12,7 +12,7 @@ export function DbProvider({ children }) {
       .from('caps')
       .select('created_at,text,id')
 
-    if (error) throw Error('No notes could be found')
+    if (error) throw Error('No caps could be found')
 
     return data
   }
@@ -26,9 +26,23 @@ export function DbProvider({ children }) {
     if (error) throw Error('Failed to write cap')
   }
 
+  const getProfile = async ({ user_id }) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select()
+      .eq('id', user_id)
+      .limit(1)
+      .single()
+
+    if (error) throw Error('Failed to get profile')
+
+    return data
+  }
+
   const dbValues = {
     getCaps,
-    writeCap
+    writeCap,
+    getProfile
   }
 
   return <DbContext.Provider value={dbValues}>{children}</DbContext.Provider>
