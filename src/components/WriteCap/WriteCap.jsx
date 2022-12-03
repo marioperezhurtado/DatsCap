@@ -45,11 +45,13 @@ export default function WriteCap() {
             name="capText"
             className="h-32 px-4 py-2 bg-transparent border rounded-md resize-none border-zinc-500 focus:outline-none"
           />
-          <div className="flex justify-end gap-3 mt-5">
+          <div className="flex justify-end gap-5 mt-4">
             <button type="button" onClick={toggleOpenHandler}>
-              Cancel
+              <img src="/close.svg" alt="Send" className="w-5" />
             </button>
-            <button className="text-purple-500">Create</button>
+            <button className="text-purple-500">
+              <img src="/send.svg" alt="Send" className="w-5" />
+            </button>
           </div>
         </div>
       </form>

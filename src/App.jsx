@@ -9,6 +9,7 @@ import AuthRoute from './components/AuthRoute/AuthRoute'
 import Home from './pages/Home/Home'
 import SignUp from './pages/SignUp/SignUp'
 import SignIn from './pages/SignIn/SignIn'
+import MyProfile from './pages/MyProfile/MyProfile'
 import NotFound from './pages/NotFound/NotFound'
 
 import Footer from './layout/Footer/Footer'
@@ -42,6 +43,14 @@ export default function App() {
                   <AuthRoute>
                     <SignIn />
                   </AuthRoute>
+                }
+              />
+              <Route
+                path="/my-profile"
+                element={
+                  <PrivateRoute>
+                    <MyProfile />
+                  </PrivateRoute>
                 }
               />
               <Route path="/*" element={<NotFound />} />

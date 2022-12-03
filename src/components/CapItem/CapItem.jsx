@@ -1,22 +1,12 @@
+import useTimestamp from '../../hooks/useTimestamp'
+
 export default function CapItem({ cap }) {
-  const initialDate = new Date(Date.parse(cap.created_at))
-  const date = initialDate.toLocaleDateString()
-  const time = initialDate.toLocaleTimeString(navigator.language, {
-    hour12: false,
-    hour: '2-digit',
-    minute: '2-digit'
-  })
-
-  const today = new Date(Date.now()).toLocaleDateString()
-
-  const displayDate = today === date ? '' : date
+  const dateTime = useTimestamp(cap?.created_at)
 
   return (
-    <div className="mx-auto border px-6 py-5 border-zinc-600 rounded-md shadow-md bg-zinc-800">
-      <p className="mb-3">{cap.text}</p>
-      <span className="block text-right text-sm">
-        {displayDate} {time}
-      </span>
+    <div className="px-6 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+      <p className="mb-3 text-xl">{cap.text}</p>
+      <span className="block text-sm text-right">{dateTime}</span>
     </div>
   )
 }
