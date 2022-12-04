@@ -11,16 +11,10 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const signUp = async ({ fullName, username, email, password }) => {
+  const signUp = async ({ email, password }) => {
     const { error } = await supabase.auth.signUp({
       email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          username: username
-        }
-      }
+      password
     })
     if (error) throw Error('Failed to create account')
   }

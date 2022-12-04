@@ -61,7 +61,7 @@ export default function SignIn() {
           className="px-3 py-1 transition-all border rounded-md shadow-md border-zinc-600 hover:bg-slate-500">
           Sign In
         </button>
-        {signInError && <p className="text-red-500">{signInError.message}</p>}
+        {signInError && <p className="text-red-400">{signInError.message}</p>}
       </form>
       <p className="mt-4 text-center">
         Need an Account?{' '}

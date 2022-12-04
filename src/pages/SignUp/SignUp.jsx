@@ -33,18 +33,16 @@ export default function SignUp() {
   const signUpHandler = (e) => {
     e.preventDefault()
 
-    const fullName = formRef.current.fullName.value
-    const username = formRef.current.username.value
     const email = formRef.current.email.value
     const password = formRef.current.password.value
     const passwordRepeat = formRef.current.passwordRepeat.value
 
-    if (!fullName || !username || !email || !password || !passwordRepeat) {
+    if (!email || !password || !passwordRepeat) {
       setValidationError('There are missing fields')
       return
     }
 
-    mutate({ fullName, username, email, password })
+    mutate({ email, password })
   }
 
   return (
@@ -56,25 +54,7 @@ export default function SignUp() {
         <h1 className="text-xl font-bold text-center">Create an account</h1>
         <SocialLogin />
         {success && <p className="text-green-500">{success}</p>}
-        {validationError && <p className="text-red-500">{validationError}</p>}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="fullName">Full Name</label>
-          <input
-            type="text"
-            name="fullName"
-            autoComplete="your-full-name"
-            className="px-3 py-1 text-black rounded-md"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            autoComplete="your-username"
-            className="px-3 py-1 text-black rounded-md"
-          />
-        </div>
+        {validationError && <p className="text-red-400">{validationError}</p>}
         <div className="flex flex-col gap-1">
           <label htmlFor="email">Email</label>
           <input
@@ -109,7 +89,7 @@ export default function SignUp() {
           Create account
         </button>
         {signUpError && (
-          <p className="mt-4 text-red-500">{signUpError.message}</p>
+          <p className="mt-4 text-red-400">{signUpError.message}</p>
         )}
       </form>
       <p className="mt-4 text-center">

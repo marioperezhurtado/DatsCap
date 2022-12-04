@@ -19,7 +19,7 @@ export default function Header() {
     queryFn: () => getProfile({ user_id: id })
   })
 
-  const username = !isProfileLoading && !profileError && `@${profile?.username}`
+  const username = (profile?.username && `@${profile?.username}`) || 'Account'
 
   const { isLoading, mutate } = useMutation({ mutationFn: signOut })
 

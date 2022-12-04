@@ -39,7 +39,7 @@ export default function Account() {
         <h1 className="mb-10 text-2xl ">
           Your personal <span className="text-purple-500">account</span>
         </h1>
-        <p className="text-red-500">
+        <p className="text-red-400">
           Sorry, we could not get your profile. Try again later
         </p>
       </div>
@@ -47,32 +47,53 @@ export default function Account() {
   }
 
   return (
-    <div className="max-w-xl mx-auto mt-20 ">
-      <h1 className="mb-10 text-2xl ">
-        Your personal <span className="text-purple-500">account</span>
-      </h1>
-      <div className="flex justify-between p-4 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
-        <div className="flex flex-col gap-2 ml-5">
-          {profile?.username && (
-            <p className="mb-3 text-2xl text-purple-500">@{profile.username}</p>
-          )}
-          {profile?.full_name && (
-            <p className="flex items-center gap-3 text-lg">
-              <img src="/account.svg" alt="Account name" className="w-4" />
-              {profile.full_name}
-            </p>
-          )}
-          <p className="flex items-center gap-3 text-lg">
-            <img src="/email.svg" alt="Email" className="w-4" />
-            {currentUser?.email}
-          </p>
-          <p className="flex items-center gap-3">
-            <img src="/history.svg" alt="Created at" className="w-4" />
-            {dateTime}
-          </p>
+    <>
+      <div className="max-w-xl mx-auto mt-20 ">
+        <h1 className="mb-10 text-2xl ">
+          Your personal <span className="text-purple-500">account</span>
+        </h1>
+        <div className="p-4 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+          <div className="flex justify-between">
+            <div className="flex flex-col gap-2 ml-5">
+              <p className="mb-3 text-2xl text-purple-500">
+                @
+                {(profile?.username && profile.username) || (
+                  <span className="text-zinc-500">unnamed-user</span>
+                )}
+              </p>
+
+              <p className="flex items-center gap-3 text-lg">
+                <img src="/account.svg" alt="Account name" className="w-4" />
+                {(profile?.full_name && profile?.full_name) || (
+                  <span className="text-zinc-500">Your Name</span>
+                )}
+              </p>
+
+              <p className="flex items-center gap-3 text-lg">
+                <img src="/email.svg" alt="Email" className="w-4" />
+                {currentUser?.email}
+              </p>
+
+              <p className="flex items-center gap-3">
+                <img src="/history.svg" alt="Created at" className="w-4" />
+                {dateTime}
+              </p>
+            </div>
+            <Avatar path={profile?.avatar_url} size="big" />
+          </div>
+          <button className="block px-2 py-1 mt-5 ml-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+            Save changes
+          </button>
         </div>
-        <Avatar path={profile?.avatar_url} size="big" />
       </div>
-    </div>
+
+      {!profile?.username && (
+        <p className="max-w-md mx-auto mt-10 text-lg text-center">
+          If you want your caps to be visible, and your friends to be able to
+          search for you,{' '}
+          <span className="text-red-400">you must have a user name.</span>
+        </p>
+      )}
+    </>
   )
 }

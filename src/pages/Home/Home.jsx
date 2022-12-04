@@ -35,7 +35,7 @@ export default function Home() {
       <>
         <Header />
         <Navbar />
-        <p className="mt-10 text-center text-red-500">
+        <p className="mt-10 text-center text-red-400">
           Oops! Something went wrong...
         </p>
         <WriteCap />
