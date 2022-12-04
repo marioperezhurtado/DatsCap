@@ -39,13 +39,13 @@ export default function WriteCap() {
         ref={formRef}
         onSubmit={writeCapHandler}
         className="absolute bottom-0 z-10 right-20">
-        <div className="flex flex-col p-3 border rounded-br-none shadow-md rounded-2xl w-96 border-zinc-500 bg-zinc-800">
+        <div className="flex flex-col p-3 border rounded-br-none shadow-md rounded-2xl w-96 border-zinc-500 bg-zinc-800 hover:shadow-lg">
           <textarea
             type="text"
             name="capText"
             className="h-32 px-4 py-2 bg-transparent border rounded-md resize-none border-zinc-500 focus:outline-none"
           />
-          <div className="flex justify-end gap-5 mt-4">
+          <div className="flex justify-end gap-6 mt-4">
             <button type="button" onClick={toggleOpenHandler}>
               <img src="/close.svg" alt="Send" className="w-5" />
             </button>
@@ -62,7 +62,7 @@ export default function WriteCap() {
     <div
       onClick={toggleOpenHandler}
       className="absolute bottom-0 z-10 cursor-pointer right-20">
-      <p className="px-4 py-2 border rounded-br-none shadow-md bg-zinc-800 rounded-2xl border-zinc-600">
+      <p className="px-4 py-2 border rounded-br-none shadow-md bg-zinc-800 rounded-2xl border-zinc-600 hover:shadow-lg">
         What's on your mind? ✨
       </p>
     </div>

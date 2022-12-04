@@ -35,14 +35,14 @@ export default function Header() {
       <div className="flex gap-3">
         <button
           onClick={goToProfileHandler}
-          className="flex items-center gap-2 px-2 py-1 text-sm border rounded-md shadow-md border-zinc-600 ">
+          className="flex items-center gap-2 px-2 py-1 text-sm border rounded-md shadow-md border-zinc-600 hover:shadow-lg">
           {username}
           <img src="private.svg" alt="manage account" className="w-4 h-4" />
         </button>
         <button
           onClick={signOutHandler}
           disabled={isLoading}
-          className="flex items-center gap-2 px-2 py-1 text-sm border rounded-md shadow-md border-zinc-600">
+          className="flex items-center gap-2 px-2 py-1 text-sm border rounded-md shadow-md border-zinc-600 hover:shadow-lg">
           Logout
           <img src="logout.svg" alt="logout" className="w-4 h-4" />
         </button>

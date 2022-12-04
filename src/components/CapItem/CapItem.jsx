@@ -22,15 +22,17 @@ export default function CapItem({ cap }) {
 
   if (profileError || profileLoading) {
     return (
-      <div className="px-4 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+      <div className="px-4 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
         <p className="mb-3 text-lg">{cap.text}</p>
         <span className="block text-sm text-right">{dateTime}</span>
       </div>
     )
   }
 
+  if (!profile?.username) return
+
   return (
-    <div className="px-6 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 flex gap-4">
+    <div className="flex gap-4 px-6 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
       <Avatar path={profile?.avatar_url} size="small" />
       <div className="flex-grow">
         <div className="flex gap-3">
