@@ -1,4 +1,4 @@
-const today = new Date(Date.now()).toLocaleDateString()
+const today = new Date(Date.now()).toLocaleDateString(navigator.language)
 
 export default function useTimestamp(timestamp) {
   const initialDate = new Date(Date.parse(timestamp))

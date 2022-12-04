@@ -8,9 +8,7 @@ const useDb = () => useContext(DbContext)
 
 export function DbProvider({ children }) {
   const getCaps = async () => {
-    const { data, error } = await supabase
-      .from('caps')
-      .select('created_at,text,id')
+    const { data, error } = await supabase.from('caps').select()
 
     if (error) throw Error('No caps could be found')
 

@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
 import useAuth from '../../contexts/AuthContext'
 import useDb from '../../contexts/DbContext'
 import useTimestamp from '../../hooks/useTimestamp'
 
+import Avatar from '../../components/Avatar/Avatar'
 import Loader from '../../layout/Loader/Loader'
 
-export default function MyProfile() {
+export default function Account() {
   const { currentUser } = useAuth()
   const { getProfile } = useDb()
 
@@ -21,9 +21,6 @@ export default function MyProfile() {
     queryKey: ['profile', id],
     queryFn: () => getProfile({ user_id: id })
   })
-
-  const [pictureLoaded, setPictureLoaded] = useState(false)
-  const showPictureHandler = () => setPictureLoaded(true)
 
   if (isLoading) {
     return (
@@ -74,14 +71,7 @@ export default function MyProfile() {
             {dateTime}
           </p>
         </div>
-        <div className="w-32 h-32 border rounded-md border-zinc-600 ">
-          <img
-            src={profile?.avatar_url}
-            alt="Profile picture"
-            className={pictureLoaded ? '' : 'hidden'}
-            onLoad={showPictureHandler}
-          />
-        </div>
+        <Avatar path={profile?.avatar_url} size="big" />
       </div>
     </div>
   )

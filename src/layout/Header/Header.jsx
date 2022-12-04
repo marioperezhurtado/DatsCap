@@ -25,7 +25,7 @@ export default function Header() {
 
   const signOutHandler = () => mutate()
 
-  const goToProfileHandler = () => navigate(`/my-profile`)
+  const goToProfileHandler = () => navigate(`/account`)
 
   return (
     <header className="flex items-center justify-between px-32 py-6 border-b shadow-md bg-zinc-800 border-zinc-600 text-slate-200">
