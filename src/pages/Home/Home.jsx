@@ -8,15 +8,15 @@ import CapList from '../../components/CapList/CapList'
 import WriteCap from '../../components/WriteCap/WriteCap'
 
 export default function Home() {
-  const { getCaps } = useDb()
+  const { getLatestCaps } = useDb()
 
   const {
     isLoading,
     error,
     data: caps
   } = useQuery({
-    queryKey: ['allCaps'],
-    queryFn: getCaps
+    queryKey: ['latestCaps'],
+    queryFn: getLatestCaps
   })
 
   if (isLoading) {

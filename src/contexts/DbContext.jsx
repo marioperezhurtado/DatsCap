@@ -7,8 +7,11 @@ const DbContext = createContext()
 const useDb = () => useContext(DbContext)
 
 export function DbProvider({ children }) {
-  const getCaps = async () => {
-    const { data, error } = await supabase.from('caps').select()
+  const getLatestCaps = async () => {
+    const { data, error } = await supabase
+      .from('caps')
+      .select()
+      .order('created_at', { ascending: false })
 
     if (error) throw Error('No caps could be found')
 
@@ -38,7 +41,7 @@ export function DbProvider({ children }) {
   }
 
   const dbValues = {
-    getCaps,
+    getLatestCaps,
     writeCap,
     getProfile
   }
