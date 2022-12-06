@@ -56,11 +56,7 @@ export default function App() {
               />
               <Route
                 path="/complete-your-account"
-                element={
-                  <PrivateRoute>
-                    <CompleteAccount />
-                  </PrivateRoute>
-                }
+                element={<CompleteAccount />}
               />
               <Route path="/*" element={<NotFound />} />
             </Routes>

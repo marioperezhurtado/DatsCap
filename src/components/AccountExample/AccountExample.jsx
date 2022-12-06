@@ -6,7 +6,7 @@ export default function AccountExample({ avatar_url, username, full_name }) {
       <Avatar path={avatar_url} size="medium" />
       <div className="flex-grow">
         <div className="flex gap-3">
-          {username && <p className="mb-3">@{username}</p>}
+          <p className="mb-3">@{username || 'your-username'}</p>
           {full_name && (
             <p className="mb-3 text-zinc-500">
               {'\u00B7 '}
