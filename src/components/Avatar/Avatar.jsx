@@ -25,7 +25,7 @@ export default function Avatar({ path, size }) {
       <img
         src="/avatar.svg"
         alt="User Avatar"
-        className={pictureLoaded ? 'hidden' : 'w-full bg-zinc-700'}
+        className={pictureLoaded ? 'hidden' : 'w-full bg-neutral-800'}
       />
     </div>
   )
