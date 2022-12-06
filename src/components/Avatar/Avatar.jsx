@@ -15,14 +15,17 @@ export default function Avatar({ path, size }) {
 
   return (
     <div
-      className={`${
-        avatarSize || ''
-      } overflow-hidden border rounded-full border-zinc-600 shadow-md`}>
+      className={`${avatarSize || ''} overflow-hidden  rounded-full shadow-md`}>
       <img
         src={path}
         alt="User Avatar"
         className={pictureLoaded ? 'w-full' : 'hidden'}
         onLoad={showPictureHandler}
+      />
+      <img
+        src="/avatar.svg"
+        alt="User Avatar"
+        className={pictureLoaded ? 'hidden' : 'w-full bg-zinc-700'}
       />
     </div>
   )

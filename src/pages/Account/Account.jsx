@@ -95,9 +95,9 @@ export default function Account() {
       <div className="max-w-xl mx-auto mt-20 ">
         <form
           ref={formRef}
-          className="p-4 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+          className="py-6 px-8 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
           <div className="flex justify-between">
-            <div className="flex flex-col gap-2 ml-5 ">
+            <div className="flex flex-col gap-2">
               <h1 className="mb-5 text-2xl">
                 Your personal <span className="text-purple-500">account</span>
               </h1>
@@ -134,7 +134,7 @@ export default function Account() {
             <button
               onClick={cancelEditingHandler}
               type="button"
-              className="block px-2 py-1 mt-5 ml-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+              className="block px-2 py-1 mt-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
               Cancel
             </button>
             <button
@@ -145,10 +145,10 @@ export default function Account() {
             </button>
           </div>
           {validationError && (
-            <p className="mt-3 ml-5 text-red-400">{validationError}</p>
+            <p className="mt-3 text-red-400">{validationError}</p>
           )}
           {editError && (
-            <p className="mt-3 ml-5 text-red-400">{editError.message}</p>
+            <p className="mt-3 text-red-400">{editError.message}</p>
           )}
         </form>
         <AccountExample
@@ -167,9 +167,9 @@ export default function Account() {
 
   return (
     <div className="max-w-xl mx-auto mt-20">
-      <div className="p-4 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+      <div className="py-6 px-8 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
         <div className="flex justify-between">
-          <div className="flex flex-col gap-2 ml-5">
+          <div className="flex flex-col gap-2">
             <h1 className="mb-5 text-2xl">
               Your personal <span className="text-purple-500">account</span>
             </h1>
@@ -200,7 +200,7 @@ export default function Account() {
         </div>
         <button
           onClick={startEditingHandler}
-          className="block px-2 py-1 mt-5 ml-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+          className="block px-2 py-1 mt-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
           Edit account
         </button>
       </div>
