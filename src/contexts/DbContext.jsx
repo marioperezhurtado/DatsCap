@@ -40,10 +40,20 @@ export function DbProvider({ children }) {
     return data
   }
 
+  const updateProfile = async ({ id, username, full_name }) => {
+    const { error } = await supabase
+      .from('profiles')
+      .update({ username, full_name })
+      .eq('id', id)
+
+    if (error) throw Error('Failed to update profile')
+  }
+
   const dbValues = {
     getLatestCaps,
     writeCap,
-    getProfile
+    getProfile,
+    updateProfile
   }
 
   return <DbContext.Provider value={dbValues}>{children}</DbContext.Provider>

@@ -1,4 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
+import { useState, useRef } from 'react'
+import { useQuery, useMutation } from '@tanstack/react-query'
+import { Link } from 'react-router-dom'
 import useAuth from '../../contexts/AuthContext'
 import useDb from '../../contexts/DbContext'
 import useTimestamp from '../../hooks/useTimestamp'
@@ -8,7 +10,7 @@ import Loader from '../../layout/Loader/Loader'
 
 export default function Account() {
   const { currentUser } = useAuth()
-  const { getProfile } = useDb()
+  const { getProfile, updateProfile } = useDb()
 
   const id = currentUser?.id
   const dateTime = useTimestamp(currentUser?.created_at)
@@ -16,11 +18,52 @@ export default function Account() {
   const {
     isLoading,
     error,
-    data: profile
+    data: profile,
+    refetch
   } = useQuery({
     queryKey: ['profile', id],
     queryFn: () => getProfile({ user_id: id })
   })
+
+  const [isEditing, setIsEditing] = useState(false)
+  const [validationError, setValidationError] = useState(null)
+
+  const formRef = useRef(null)
+
+  const startEditingHandler = () => setIsEditing(true)
+  const cancelEditingHandler = () => setIsEditing(false)
+
+  const {
+    error: editError,
+    isLoading: isEditingProfile,
+    mutate: editProfile
+  } = useMutation({
+    mutationKey: ['editProfile', id],
+    mutationFn: ({ id, username, full_name }) =>
+      updateProfile({ id, username, full_name }),
+    onSuccess: () => {
+      setIsEditing(false)
+      refetch()
+    }
+  })
+
+  const editProfileHandler = (e) => {
+    e.preventDefault()
+
+    const username = formRef.current.username.value
+    const full_name = formRef.current.fullName.value
+
+    if (!username) {
+      setValidationError('Username is required')
+      return
+    }
+    if (username.length < 5) {
+      setValidationError('Username must be at least 5 characters long')
+      return
+    }
+
+    editProfile({ id, username, full_name })
+  }
 
   if (isLoading) {
     return (
@@ -46,54 +89,111 @@ export default function Account() {
     )
   }
 
-  return (
-    <>
+  if (isEditing) {
+    return (
       <div className="max-w-xl mx-auto mt-20 ">
         <h1 className="mb-10 text-2xl ">
           Your personal <span className="text-purple-500">account</span>
         </h1>
-        <div className="p-4 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+        <form
+          ref={formRef}
+          className="p-4 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
           <div className="flex justify-between">
-            <div className="flex flex-col gap-2 ml-5">
-              <p className="mb-3 text-2xl text-purple-500">
+            <div className="flex flex-col gap-2 ml-5 ">
+              <div className="flex items-center mb-3 text-2xl text-purple-500 border-b border-slate-400">
                 @
-                {(profile?.username && profile.username) || (
-                  <span className="text-zinc-500">unnamed-user</span>
-                )}
-              </p>
-
-              <p className="flex items-center gap-3 text-lg">
+                <input
+                  name="username"
+                  className="bg-transparent focus:outline-none"
+                  defaultValue={profile.username}
+                />
+              </div>
+              <div className="flex items-center gap-3 text-lg border-b border-slate-400">
                 <img src="/account.svg" alt="Account name" className="w-4" />
-                {(profile?.full_name && profile?.full_name) || (
-                  <span className="text-zinc-500">Your Name</span>
-                )}
-              </p>
-
-              <p className="flex items-center gap-3 text-lg">
+                <input
+                  name="fullName"
+                  className="w-full bg-transparent focus:outline-none "
+                  defaultValue={profile?.full_name || 'Your Name'}
+                />
+              </div>
+              <div className="flex items-center gap-3 text-lg">
                 <img src="/email.svg" alt="Email" className="w-4" />
-                {currentUser?.email}
-              </p>
-
-              <p className="flex items-center gap-3">
+                {currentUser.email}
+              </div>
+              <div className="flex items-center gap-3">
                 <img src="/history.svg" alt="Created at" className="w-4" />
                 {dateTime}
-              </p>
+              </div>
             </div>
             <Avatar path={profile?.avatar_url} size="big" />
           </div>
-          <button className="block px-2 py-1 mt-5 ml-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
-            Save changes
-          </button>
-        </div>
+          <div className="flex">
+            <button
+              onClick={cancelEditingHandler}
+              type="button"
+              className="block px-2 py-1 mt-5 ml-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+              Cancel
+            </button>
+            <button
+              disabled={isEditingProfile}
+              onClick={editProfileHandler}
+              className="block px-2 py-1 mt-5 ml-2 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+              Save changes
+            </button>
+          </div>
+          {validationError && (
+            <p className="mt-3 ml-5 text-red-400">{validationError}</p>
+          )}
+          {editError && (
+            <p className="mt-3 ml-5 text-red-400">{editError.message}</p>
+          )}
+        </form>
       </div>
+    )
+  }
 
-      {!profile?.username && (
-        <p className="max-w-md mx-auto mt-10 text-lg text-center">
-          If you want your caps to be visible, and your friends to be able to
-          search for you,{' '}
-          <span className="text-red-400">you must have a user name.</span>
-        </p>
-      )}
-    </>
+  return (
+    <div className="max-w-xl mx-auto mt-20">
+      <h1 className="mb-10 text-2xl ">
+        Your personal <span className="text-purple-500">account</span>
+      </h1>
+      <div className="p-4 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-2 ml-5">
+            <p className="mb-3 text-2xl text-purple-500 border-b border-transparent">
+              @{profile.username}
+            </p>
+
+            <p className="flex items-center gap-3 text-lg border-b border-transparent">
+              <img src="/account.svg" alt="Account name" className="w-4" />
+              {(profile?.full_name && profile?.full_name) || (
+                <span className="text-zinc-500">Your Name</span>
+              )}
+            </p>
+
+            <p className="flex items-center gap-3 text-lg">
+              <img src="/email.svg" alt="Email" className="w-4" />
+              {currentUser.email}
+            </p>
+
+            <p className="flex items-center gap-3">
+              <img src="/history.svg" alt="Created at" className="w-4" />
+              {dateTime}
+            </p>
+          </div>
+          <Avatar path={profile?.avatar_url} size="big" />
+        </div>
+        <button
+          onClick={startEditingHandler}
+          className="block px-2 py-1 mt-5 ml-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+          Edit account
+        </button>
+      </div>
+      <Link to="/">
+        <button className="block px-2 py-1 mx-auto mt-10 transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+          Back to Home
+        </button>
+      </Link>
+    </div>
   )
 }
