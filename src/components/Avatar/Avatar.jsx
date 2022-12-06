@@ -3,7 +3,7 @@ import { useState } from 'react'
 const AVATAR_SIZES = {
   small: 'w-12 h-12',
   medium: 'w-20 h-20',
-  big: 'w-32 h-32'
+  large: 'w-32 h-32'
 }
 
 export default function Avatar({ path, size }) {
@@ -17,11 +17,11 @@ export default function Avatar({ path, size }) {
     <div
       className={`${
         avatarSize || ''
-      } overflow-hidden border rounded-full border-zinc-600`}>
+      } overflow-hidden border rounded-full border-zinc-600 shadow-md`}>
       <img
         src={path}
         alt="User Avatar"
-        className={pictureLoaded ? '' : 'hidden'}
+        className={pictureLoaded ? 'w-full' : 'hidden'}
         onLoad={showPictureHandler}
       />
     </div>

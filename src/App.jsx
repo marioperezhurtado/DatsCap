@@ -10,6 +10,7 @@ import Home from './pages/Home/Home'
 import SignUp from './pages/SignUp/SignUp'
 import SignIn from './pages/SignIn/SignIn'
 import Account from './pages/Account/Account'
+import CompleteAccount from './pages/CompleteAccount/CompleteAccount'
 import NotFound from './pages/NotFound/NotFound'
 
 import Footer from './layout/Footer/Footer'
@@ -50,6 +51,14 @@ export default function App() {
                 element={
                   <PrivateRoute>
                     <Account />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/complete-your-account"
+                element={
+                  <PrivateRoute>
+                    <CompleteAccount />
                   </PrivateRoute>
                 }
               />

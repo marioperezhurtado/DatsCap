@@ -38,7 +38,10 @@ export default function CapItem({ cap }) {
         <div className="flex gap-3">
           {profile?.username && <p className="mb-3">@{profile.username}</p>}
           {profile?.full_name && (
-            <p className="mb-3 text-zinc-500">{profile.full_name}</p>
+            <p className="mb-3 text-zinc-500">
+              {'\u00B7 '}
+              {profile.full_name}
+            </p>
           )}
         </div>
         <p className="mb-3 text-lg">{cap.text}</p>

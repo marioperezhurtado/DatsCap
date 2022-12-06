@@ -7,6 +7,7 @@ import useTimestamp from '../../hooks/useTimestamp'
 
 import Avatar from '../../components/Avatar/Avatar'
 import Loader from '../../layout/Loader/Loader'
+import AccountExample from '../../components/AccountExample/AccountExample'
 
 export default function Account() {
   const { currentUser } = useAuth()
@@ -92,15 +93,15 @@ export default function Account() {
   if (isEditing) {
     return (
       <div className="max-w-xl mx-auto mt-20 ">
-        <h1 className="mb-10 text-2xl ">
-          Your personal <span className="text-purple-500">account</span>
-        </h1>
         <form
           ref={formRef}
-          className="p-4 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+          className="p-4 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
           <div className="flex justify-between">
             <div className="flex flex-col gap-2 ml-5 ">
-              <div className="flex items-center mb-3 text-2xl text-purple-500 border-b border-slate-400">
+              <h1 className="mb-5 text-2xl">
+                Your personal <span className="text-purple-500">account</span>
+              </h1>
+              <div className="flex items-center mb-3 text-xl text-purple-500 border-b border-slate-400">
                 @
                 <input
                   name="username"
@@ -125,7 +126,9 @@ export default function Account() {
                 {dateTime}
               </div>
             </div>
-            <Avatar path={profile?.avatar_url} size="big" />
+            <div className="mt-12">
+              <Avatar path={profile?.avatar_url} size="large" />
+            </div>
           </div>
           <div className="flex">
             <button
@@ -148,19 +151,29 @@ export default function Account() {
             <p className="mt-3 ml-5 text-red-400">{editError.message}</p>
           )}
         </form>
+        <AccountExample
+          avatar_url={profile?.avatar_url}
+          username={profile?.username}
+          full_name={profile?.full_name}
+        />
+        <Link to="/">
+          <button className="block px-2 py-1 mx-auto mt-10 transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+            Back to Home
+          </button>
+        </Link>
       </div>
     )
   }
 
   return (
     <div className="max-w-xl mx-auto mt-20">
-      <h1 className="mb-10 text-2xl ">
-        Your personal <span className="text-purple-500">account</span>
-      </h1>
-      <div className="p-4 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+      <div className="p-4 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
         <div className="flex justify-between">
           <div className="flex flex-col gap-2 ml-5">
-            <p className="mb-3 text-2xl text-purple-500 border-b border-transparent">
+            <h1 className="mb-5 text-2xl">
+              Your personal <span className="text-purple-500">account</span>
+            </h1>
+            <p className="mb-3 text-xl text-purple-500 border-b border-transparent">
               @{profile.username}
             </p>
 
@@ -181,7 +194,9 @@ export default function Account() {
               {dateTime}
             </p>
           </div>
-          <Avatar path={profile?.avatar_url} size="big" />
+          <div className="mt-12">
+            <Avatar path={profile?.avatar_url} size="large" />
+          </div>
         </div>
         <button
           onClick={startEditingHandler}
@@ -189,6 +204,11 @@ export default function Account() {
           Edit account
         </button>
       </div>
+      <AccountExample
+        avatar_url={profile?.avatar_url}
+        username={profile?.username}
+        full_name={profile?.full_name}
+      />
       <Link to="/">
         <button className="block px-2 py-1 mx-auto mt-10 transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
           Back to Home
