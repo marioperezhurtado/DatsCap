@@ -3,6 +3,7 @@ import useDb from '../../contexts/DbContext'
 import useTimestamp from '../../hooks/useTimestamp'
 
 import Avatar from '../Avatar/Avatar'
+import CapActions from '../CapActions/CapActions'
 
 export default function CapItem({ cap }) {
   const { getProfile } = useDb()
@@ -32,7 +33,7 @@ export default function CapItem({ cap }) {
   if (!profile?.username) return
 
   return (
-    <div className="flex gap-4 px-6 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
+    <div className="flex gap-4 px-6 pt-5 pb-2 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
       <Avatar path={profile?.avatar_url} size="small" />
       <div className="flex-grow">
         <div className="flex gap-3">
@@ -45,7 +46,10 @@ export default function CapItem({ cap }) {
           )}
         </div>
         <p className="mb-3 text-lg">{cap.text}</p>
-        <span className="block text-sm text-right">{dateTime}</span>
+        <div className="flex items-center justify-between">
+          <span className="py-2 text-sm text-zinc-500">{dateTime}</span>
+          <CapActions />
+        </div>
       </div>
     </div>
   )

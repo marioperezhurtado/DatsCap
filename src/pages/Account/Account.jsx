@@ -85,7 +85,7 @@ export default function Account() {
     return (
       <>
         <Header />
-        <div className="max-w-xl mx-auto mt-20 py-6 px-8 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+        <div className="max-w-xl px-8 py-6 mx-auto mt-20 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
           <h1 className="mb-10 text-2xl ">
             Your personal <span className="text-purple-500">account</span>
           </h1>
@@ -104,7 +104,7 @@ export default function Account() {
         <div className="max-w-xl mx-auto mt-20 ">
           <form
             ref={formRef}
-            className="py-6 px-8 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+            className="px-8 py-6 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
             <div className="flex justify-between">
               <div className="flex flex-col gap-2">
                 <h1 className="mb-5 text-2xl">
@@ -119,7 +119,7 @@ export default function Account() {
                   />
                 </div>
                 <div className="flex items-center gap-3 text-lg border-b border-slate-400">
-                  <img src="/account.svg" alt="Account name" className="w-4" />
+                  <img src="/account.svg" alt="Account name" className="w-5" />
                   <input
                     name="fullName"
                     className="w-full bg-transparent focus:outline-none "
@@ -127,11 +127,11 @@ export default function Account() {
                   />
                 </div>
                 <div className="flex items-center gap-3 text-lg">
-                  <img src="/email.svg" alt="Email" className="w-4" />
+                  <img src="/email.svg" alt="Email" className="w-5" />
                   {currentUser.email}
                 </div>
                 <div className="flex items-center gap-3">
-                  <img src="/history.svg" alt="Created at" className="w-4" />
+                  <img src="/calendar.svg" alt="Created at" className="w-5" />
                   {dateTime}
                 </div>
               </div>
@@ -179,7 +179,7 @@ export default function Account() {
     <>
       <Header />
       <div className="max-w-xl mx-auto mt-20">
-        <div className="py-6 px-8 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
+        <div className="px-8 py-6 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800">
           <div className="flex justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="mb-5 text-2xl">
@@ -190,19 +190,19 @@ export default function Account() {
               </p>
 
               <p className="flex items-center gap-3 text-lg border-b border-transparent">
-                <img src="/account.svg" alt="Account name" className="w-4" />
+                <img src="/account.svg" alt="Account name" className="w-5" />
                 {(profile?.full_name && profile?.full_name) || (
                   <span className="text-zinc-500">Your Name</span>
                 )}
               </p>
 
               <p className="flex items-center gap-3 text-lg">
-                <img src="/email.svg" alt="Email" className="w-4" />
+                <img src="/email.svg" alt="Email" className="w-5" />
                 {currentUser.email}
               </p>
 
               <p className="flex items-center gap-3">
-                <img src="/history.svg" alt="Created at" className="w-4" />
+                <img src="/calendar.svg" alt="Created at" className="w-5" />
                 {dateTime}
               </p>
             </div>

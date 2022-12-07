@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import useAuth from '../../contexts/AuthContext'
 import useDb from '../../contexts/DbContext'
+import useOnClickOutside from '../../hooks/useOnClickOutside'
 
 export default function WriteCap() {
   const [isOpen, setOpen] = useState(false)
@@ -33,26 +34,23 @@ export default function WriteCap() {
     }
   }
 
+  useOnClickOutside({ ref: formRef, handler: toggleOpenHandler })
+
   if (isOpen) {
     return (
       <form
         ref={formRef}
         onSubmit={writeCapHandler}
         className="absolute bottom-0 z-10 right-20">
-        <div className="flex flex-col p-3 border rounded-br-none shadow-md rounded-2xl w-96 border-zinc-500 bg-zinc-800 hover:shadow-lg">
+        <div className="flex flex-col p-3 pb-0 border rounded-br-none shadow-md rounded-2xl w-96 border-zinc-500 bg-zinc-800 hover:shadow-lg">
           <textarea
             type="text"
             name="capText"
             className="h-32 px-4 py-2 bg-transparent border rounded-md resize-none border-zinc-500 focus:outline-none"
           />
-          <div className="flex justify-end gap-6 mt-4">
-            <button type="button" onClick={toggleOpenHandler}>
-              <img src="/close.svg" alt="Send" className="w-5" />
-            </button>
-            <button className="text-purple-500">
-              <img src="/send.svg" alt="Send" className="w-5" />
-            </button>
-          </div>
+          <button className="ml-auto text-purple-500 w-fit">
+            <img src="/send.svg" alt="Send" className="w-10 p-2" />
+          </button>
         </div>
       </form>
     )
