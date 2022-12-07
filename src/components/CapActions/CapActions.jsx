@@ -17,7 +17,7 @@ export default function CapActions() {
         <ul
           ref={reactionsRef}
           onMouseLeave={closeReactionsHandler}
-          className="absolute flex text-xl rounded-md shadow-md -right-11 -top-5 bg-slate-300">
+          className="absolute flex text-xl rounded-md shadow-md -right-3 -top-5 bg-slate-300">
           <li className="flex items-center">
             <button className="p-1">😍</button>
           </li>

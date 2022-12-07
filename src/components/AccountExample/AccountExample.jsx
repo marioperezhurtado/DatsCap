@@ -2,7 +2,7 @@ import Avatar from '../Avatar/Avatar'
 
 export default function AccountExample({ avatar_url, username, full_name }) {
   return (
-    <div className="flex gap-4 px-6 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
+    <div className="flex flex-wrap gap-4 px-6 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
       <Avatar path={avatar_url} size="medium" />
       <div className="flex-grow">
         <div className="flex gap-3">

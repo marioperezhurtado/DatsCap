@@ -59,9 +59,9 @@ export default function WriteCap() {
   return (
     <div
       onClick={toggleOpenHandler}
-      className="absolute bottom-0 z-10 cursor-pointer right-20">
+      className="fixed z-10 cursor-pointer bottom-5 md:bottom-32 right-5 md:right-20">
       <p className="px-4 py-2 border rounded-br-none shadow-md bg-zinc-800 rounded-2xl border-zinc-600 hover:shadow-lg">
-        What's on your mind? ✨
+        <span className="hidden md:inline">What's on your mind? </span>✨
       </p>
     </div>
   )

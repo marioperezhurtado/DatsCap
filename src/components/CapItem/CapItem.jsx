@@ -46,7 +46,7 @@ export default function CapItem({ cap }) {
           )}
         </div>
         <p className="mb-3 text-lg">{cap.text}</p>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-1">
           <span className="py-2 text-sm text-zinc-500">{dateTime}</span>
           <CapActions />
         </div>

@@ -10,11 +10,7 @@ export default function Header() {
 
   const id = currentUser.id
 
-  const {
-    isLoading: isProfileLoading,
-    error: profileError,
-    data: profile
-  } = useQuery({
+  const { data: profile } = useQuery({
     queryKey: ['profile', id],
     queryFn: () => getProfile({ user_id: id })
   })
@@ -24,7 +20,7 @@ export default function Header() {
   const { isLoading, mutate: logOut } = useMutation({ mutationFn: signOut })
 
   return (
-    <header className="flex items-center justify-between px-32 py-6 border-b shadow-md bg-zinc-800 border-zinc-600 text-slate-200">
+    <header className="flex items-center justify-between px-10 py-6 border-b shadow-md bg-zinc-800 border-zinc-600 text-slate-200 md:px-32">
       <Link to="/">
         <h1 className="text-2xl font-semibold">
           Dats<span className="text-purple-500">Cap</span>
@@ -32,17 +28,17 @@ export default function Header() {
       </Link>
       <div className="flex gap-3">
         <Link to="/account">
-          <button className="flex items-center gap-2 px-2 py-1 text-sm border rounded-md shadow-md border-zinc-600 hover:shadow-lg">
-            {username}
-            <img src="private.svg" alt="manage account" className="w-4 h-4" />
+          <button className="flex items-center gap-2 px-2 py-2 text-sm border rounded-md shadow-md border-zinc-600 hover:shadow-lg">
+            <span className="hidden sm:block">{username}</span>
+            <img src="account.svg" alt="Manage account" className="w-4 h-4" />
           </button>
         </Link>
         <button
           onClick={logOut}
           disabled={isLoading}
-          className="flex items-center gap-2 px-2 py-1 text-sm border rounded-md shadow-md border-zinc-600 hover:shadow-lg">
-          Logout
-          <img src="logout.svg" alt="logout" className="w-4 h-4" />
+          className="flex items-center gap-2 px-2 py-2 text-sm border rounded-md shadow-md border-zinc-600 hover:shadow-lg">
+          <span className="hidden sm:block">Logout</span>
+          <img src="logout.svg" alt="Logout" className="w-4 h-4" />
         </button>
       </div>
     </header>
