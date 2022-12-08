@@ -30,7 +30,7 @@ export default function SignIn() {
   }
 
   return (
-    <div className="pt-20">
+    <div className="px-2 pt-20">
       <form
         ref={formRef}
         onSubmit={signInHandler}

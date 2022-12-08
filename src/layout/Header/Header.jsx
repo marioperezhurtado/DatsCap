@@ -20,7 +20,7 @@ export default function Header() {
   const { isLoading, mutate: logOut } = useMutation({ mutationFn: signOut })
 
   return (
-    <header className="flex items-center justify-between px-10 py-6 border-b shadow-md bg-zinc-800 border-zinc-600 text-slate-200 md:px-32">
+    <header className="flex items-center justify-between px-10 py-6 border-b shadow-md bg-zinc-800 border-zinc-600 text-slate-200 md:px-32 lg:px-48">
       <Link to="/">
         <h1 className="text-2xl font-semibold">
           Dats<span className="text-purple-500">Cap</span>
@@ -28,7 +28,7 @@ export default function Header() {
       </Link>
       <div className="flex gap-3">
         <Link to="/account">
-          <button className="flex items-center gap-2 px-2 py-2 text-sm border rounded-md shadow-md border-zinc-600 hover:shadow-lg">
+          <button className="flex items-center gap-2 px-2 py-2 text-sm transition border rounded-md shadow-md border-zinc-600 hover:shadow-lg hover:bg-slate-500">
             <span className="hidden sm:block">{username}</span>
             <img src="account.svg" alt="Manage account" className="w-4 h-4" />
           </button>
@@ -36,7 +36,7 @@ export default function Header() {
         <button
           onClick={logOut}
           disabled={isLoading}
-          className="flex items-center gap-2 px-2 py-2 text-sm border rounded-md shadow-md border-zinc-600 hover:shadow-lg">
+          className="flex items-center gap-2 px-2 py-2 text-sm transition border rounded-md shadow-md hover:bg-slate-500 border-zinc-600 hover:shadow-lg">
           <span className="hidden sm:block">Logout</span>
           <img src="logout.svg" alt="Logout" className="w-4 h-4" />
         </button>
