@@ -14,7 +14,6 @@ export function DbProvider({ children }) {
       .order('created_at', { ascending: false })
 
     if (error) throw Error('No caps could be found')
-
     return data
   }
 
@@ -36,7 +35,6 @@ export function DbProvider({ children }) {
       .single()
 
     if (error) throw Error('Failed to get profile')
-
     return data
   }
 
@@ -49,11 +47,43 @@ export function DbProvider({ children }) {
     if (error) throw Error('Failed to update profile')
   }
 
+  const getLikes = async ({ cap_id }) => {
+    const { count, error } = await supabase
+      .from('reactions')
+      .select('*', { count: 'exact', head: true })
+      .match({ cap_id, reaction: true })
+
+    if (error) throw Error('Failed to get likes')
+    return count
+  }
+
+  const getDislikes = async ({ cap_id }) => {
+    const { count, error } = await supabase
+      .from('reactions')
+      .select('*', { count: 'exact', head: true })
+      .match({ cap_id, reaction: false })
+
+    if (error) throw Error('Failed to get dislikes')
+    return count
+  }
+
+  const addReaction = async ({ cap_id, user_id, reaction }) => {
+    const { error } = await supabase.from('reactions').upsert({
+      cap_id,
+      user_id,
+      reaction
+    })
+    if (error) throw Error('Failed to add reaction')
+  }
+
   const dbValues = {
     getLatestCaps,
     writeCap,
     getProfile,
-    updateProfile
+    updateProfile,
+    getLikes,
+    getDislikes,
+    addReaction
   }
 
   return <DbContext.Provider value={dbValues}>{children}</DbContext.Provider>

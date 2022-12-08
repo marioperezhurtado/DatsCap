@@ -24,7 +24,8 @@ export default function Account() {
     refetch
   } = useQuery({
     queryKey: ['profile', id],
-    queryFn: () => getProfile({ user_id: id })
+    queryFn: () => getProfile({ user_id: id }),
+    refetchOnWindowFocus: false
   })
 
   const [isEditing, setIsEditing] = useState(false)

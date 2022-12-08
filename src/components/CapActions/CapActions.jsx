@@ -1,60 +1,63 @@
-import { useState, useRef } from 'react'
-import useOnClickOutside from '../../hooks/useOnClickOutside'
+import { useQuery } from '@tanstack/react-query'
+import useAuth from '../../contexts/AuthContext'
+import useDb from '../../contexts/DbContext'
 
-export default function CapActions() {
-  const [isReactionsOpen, setIsReactionsOpen] = useState(false)
+export default function CapActions({ cap_id }) {
+  const { getLikes, getDislikes, addReaction } = useDb()
 
-  const openReactionsHandler = () => setIsReactionsOpen(true)
-  const closeReactionsHandler = () => setIsReactionsOpen(false)
+  const { data: likeCount } = useQuery({
+    queryKey: ['likeCount', cap_id],
+    queryFn: () => getLikes({ cap_id: cap_id }),
+    retry: 0,
+    refetchOnWindowFocus: false
+  })
 
-  const reactionsRef = useRef()
+  const { data: dislikeCount } = useQuery({
+    queryKey: ['dislikeCount', cap_id],
+    queryFn: () => getDislikes({ cap_id: cap_id }),
+    retry: 0,
+    refetchOnWindowFocus: false
+  })
 
-  useOnClickOutside({ ref: reactionsRef, handler: closeReactionsHandler })
+  const { currentUser } = useAuth()
 
-  if (isReactionsOpen) {
-    return (
-      <div className="relative">
-        <ul
-          ref={reactionsRef}
-          onMouseLeave={closeReactionsHandler}
-          className="absolute flex text-xl rounded-md shadow-md -right-3 -top-5 bg-slate-300">
-          <li className="flex items-center">
-            <button className="p-1">😍</button>
-          </li>
-          <li className="flex items-center">
-            <button className="p-1">😂</button>
-          </li>
-          <li className="flex items-center">
-            <button className="p-1">😯</button>
-          </li>
-          <li className="flex items-center">
-            <button className="p-1">😭</button>
-          </li>
-          <li className="flex items-center">
-            <button className="p-1">😡</button>
-          </li>
-        </ul>
-      </div>
-    )
+  const likeHandler = () => {
+    addReaction({ cap_id, user_id: currentUser?.id, reaction: true })
+  }
+  const dislikeHandler = () => {
+    addReaction({ cap_id, user_id: currentUser?.id, reaction: false })
   }
 
   return (
-    <ul className="flex items-center gap-2">
-      <li className="flex items-center group">
-        <button onClick={openReactionsHandler}>
-          <img src="/like.svg" alt="React" className="w-8 h-8 p-2" />
-        </button>
-      </li>
-      <li className="flex items-center">
-        <button>
-          <img src="/comment.svg" alt="Comment" className="p-2 w-9 h-9" />
-        </button>
-      </li>
-      <li className="flex items-center">
-        <button>
-          <img src="/save.svg" alt="Save" className="p-2 w-9 h-9" />
-        </button>
-      </li>
-    </ul>
+    <>
+      <ul className="relative flex items-center gap-2">
+        <li className="flex items-center group">
+          <button onClick={likeHandler}>
+            <img src="/like.svg" alt="Like" className="w-8 h-8 p-2" />
+          </button>
+          <span className="text-sm text-zinc-500">
+            {likeCount > 0 && likeCount}
+          </span>
+        </li>
+        <li className="flex items-center group">
+          <button onClick={dislikeHandler}>
+            <img src="/dislike.svg" alt="Dislike" className="w-8 h-8 p-2" />
+          </button>
+          <span className="text-sm text-zinc-500">
+            {dislikeCount > 0 && dislikeCount}
+          </span>
+        </li>
+        <li className="flex items-center">
+          <button>
+            <img src="/comment.svg" alt="Comment" className="p-2 w-9 h-9" />
+          </button>
+        </li>
+        <li className="flex items-center">
+          <button>
+            <img src="/save.svg" alt="Save" className="p-2 w-9 h-9" />
+          </button>
+        </li>
+      </ul>
+    </>
   )
 }

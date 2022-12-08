@@ -8,15 +8,16 @@ import CapActions from '../CapActions/CapActions'
 export default function CapItem({ cap }) {
   const { getProfile } = useDb()
 
-  const id = cap.user_id
+  const user_id = cap.user_id
 
   const {
     error: profileError,
     loading: profileLoading,
     data: profile
   } = useQuery({
-    queryKey: ['profile', id],
-    queryFn: () => getProfile({ user_id: id })
+    queryKey: ['profile', user_id],
+    queryFn: () => getProfile({ user_id }),
+    refetchOnWindowFocus: false
   })
 
   const dateTime = useTimestamp(cap.created_at)
@@ -36,19 +37,19 @@ export default function CapItem({ cap }) {
     <div className="flex gap-4 px-6 pt-5 pb-2 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
       <Avatar path={profile?.avatar_url} size="small" />
       <div className="flex-grow">
-        <div className="flex gap-3">
-          {profile?.username && <p className="mb-3">@{profile.username}</p>}
+        <div className="flex flex-wrap mb-3 gap-x-3">
+          {profile?.username && <p>@{profile.username}</p>}
           {profile?.full_name && (
-            <p className="mb-3 text-zinc-500">
+            <p className=" text-zinc-500">
               {'\u00B7 '}
               {profile.full_name}
             </p>
           )}
         </div>
         <p className="mb-3 text-lg">{cap.text}</p>
-        <div className="flex items-center justify-between gap-1">
+        <div className="flex flex-wrap items-center justify-between gap-1">
           <span className="py-2 text-sm text-zinc-500">{dateTime}</span>
-          <CapActions />
+          <CapActions cap_id={cap?.id} />
         </div>
       </div>
     </div>
