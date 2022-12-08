@@ -76,6 +76,17 @@ export function DbProvider({ children }) {
     if (error) throw Error('Failed to add reaction')
   }
 
+  const capsListener = (callback) => {
+    return supabase
+      .channel('public:caps')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'caps' },
+        callback
+      )
+      .subscribe()
+  }
+
   const dbValues = {
     getLatestCaps,
     writeCap,
@@ -83,7 +94,8 @@ export function DbProvider({ children }) {
     updateProfile,
     getLikes,
     getDislikes,
-    addReaction
+    addReaction,
+    capsListener
   }
 
   return <DbContext.Provider value={dbValues}>{children}</DbContext.Provider>

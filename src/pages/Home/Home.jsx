@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import useDb from '../../contexts/DbContext'
 
@@ -8,16 +9,23 @@ import CapList from '../../components/CapList/CapList'
 import WriteCap from '../../components/WriteCap/WriteCap'
 
 export default function Home() {
-  const { getLatestCaps } = useDb()
+  const { getLatestCaps, capsListener } = useDb()
 
   const {
     isLoading,
     error,
-    data: caps
+    data: caps,
+    refetch
   } = useQuery({
     queryKey: ['latestCaps'],
     queryFn: getLatestCaps
   })
+
+  useEffect(() => {
+    // Subscribe to realtime caps updates
+    const capsSubscription = capsListener(refetch)
+    return () => capsSubscription.unsubscribe()
+  }, [])
 
   if (isLoading) {
     return (
