@@ -62,9 +62,17 @@ export default function WriteCap() {
           className="h-32 px-4 py-2 bg-transparent border rounded-md resize-none border-zinc-500 focus:outline-none"
           placeholder="Type something..."
         />
-        <button className="px-2 py-1 my-2 ml-auto border rounded-md border-zinc-600 w-fit">
-          Create
-        </button>
+        <div className="flex gap-2 my-2 ml-auto ">
+          <button
+            type="button"
+            onClick={toggleOpenHandler}
+            className="px-2 py-1 transition border rounded-md border-zinc-600 w-fit hover:bg-slate-500 bg-neutral-800">
+            Cancel
+          </button>
+          <button className="px-2 py-1 transition border rounded-md border-zinc-600 w-fit hover:bg-slate-500 bg-neutral-800">
+            Create
+          </button>
+        </div>
       </form>
     )
   }
@@ -73,7 +81,7 @@ export default function WriteCap() {
     <div
       onClick={toggleOpenHandler}
       className="fixed z-10 cursor-pointer bottom-5 md:bottom-32 right-5 md:right-20">
-      <p className="px-4 py-2 border rounded-br-none shadow-md bg-zinc-700 border-zinc-500 rounded-2xl hover:shadow-lg hover:bg-slate-500">
+      <p className="px-4 py-2 transition border rounded-br-none shadow-md bg-zinc-700 border-zinc-500 rounded-2xl hover:shadow-lg hover:bg-slate-500">
         <span className="hidden md:inline">What's on your mind? </span>✨
       </p>
     </div>

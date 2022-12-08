@@ -7,6 +7,17 @@ const DbContext = createContext()
 const useDb = () => useContext(DbContext)
 
 export function DbProvider({ children }) {
+  const getCap = async ({ id }) => {
+    const { data, error } = await supabase
+      .from('caps')
+      .select()
+      .eq('id', id)
+      .limit(1)
+      .single()
+    if (error) throw Error('The requested note could not be found')
+    return data
+  }
+
   const getLatestCaps = async () => {
     const { data, error } = await supabase
       .from('caps')
@@ -76,6 +87,17 @@ export function DbProvider({ children }) {
     if (error) throw Error('Failed to add reaction')
   }
 
+  const getComments = async ({ id }) => {
+    const { data, error } = await supabase
+      .from('comments')
+      .select()
+      .eq('cap_id', id)
+      .order('created_at', { ascending: false })
+
+    if (error) throw Error('No comments could be found')
+    return data
+  }
+
   const capsListener = (callback) => {
     return supabase
       .channel('public:caps')
@@ -88,6 +110,7 @@ export function DbProvider({ children }) {
   }
 
   const dbValues = {
+    getCap,
     getLatestCaps,
     writeCap,
     getProfile,
@@ -95,6 +118,7 @@ export function DbProvider({ children }) {
     getLikes,
     getDislikes,
     addReaction,
+    getComments,
     capsListener
   }
 

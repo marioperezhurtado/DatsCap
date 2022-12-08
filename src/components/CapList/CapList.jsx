@@ -12,7 +12,9 @@ export default function CapList({ caps }) {
 
   return (
     <div className="px-2">
-      <ul className="flex flex-col max-w-xl gap-5 mx-auto mt-10">{capItems}</ul>
+      <ul className="flex flex-col max-w-xl gap-5 w-full mx-auto mt-10">
+        {capItems}
+      </ul>
     </div>
   )
 }

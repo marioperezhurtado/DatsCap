@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 const AVATAR_SIZES = {
-  small: 'w-12',
-  medium: 'w-20',
+  small: 'w-8',
+  medium: 'w-12',
   large: 'w-32'
 }
 

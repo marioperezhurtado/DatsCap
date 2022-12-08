@@ -28,17 +28,17 @@ export default function Header() {
       </Link>
       <div className="flex gap-3">
         <Link to="/account">
-          <button className="flex items-center gap-2 px-2 py-2 text-sm transition border rounded-md shadow-md border-zinc-600 hover:shadow-lg hover:bg-slate-500">
+          <button className="flex items-center gap-2 px-2 py-2 text-sm transition border rounded-md shadow-md border-zinc-600 hover:shadow-lg hover:bg-slate-500 bg-neutral-800">
             <span className="hidden sm:block">{username}</span>
-            <img src="account.svg" alt="Manage account" className="w-4 h-4" />
+            <img src="/account.svg" alt="Manage account" className="w-4 h-4" />
           </button>
         </Link>
         <button
           onClick={logOut}
           disabled={isLoading}
-          className="flex items-center gap-2 px-2 py-2 text-sm transition border rounded-md shadow-md hover:bg-slate-500 border-zinc-600 hover:shadow-lg">
+          className="flex items-center gap-2 px-2 py-2 text-sm transition border rounded-md shadow-md hover:bg-slate-500 border-zinc-600 hover:shadow-lg bg-neutral-800">
           <span className="hidden sm:block">Logout</span>
-          <img src="logout.svg" alt="Logout" className="w-4 h-4" />
+          <img src="/logout.svg" alt="Logout" className="w-4 h-4" />
         </button>
       </div>
     </header>

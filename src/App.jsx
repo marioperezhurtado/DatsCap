@@ -7,6 +7,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import AuthRoute from './components/AuthRoute/AuthRoute'
 
 import Home from './pages/Home/Home'
+import Cap from './pages/Cap/Cap'
 import SignUp from './pages/SignUp/SignUp'
 import SignIn from './pages/SignIn/SignIn'
 import Account from './pages/Account/Account'
@@ -27,6 +28,14 @@ export default function App() {
                 element={
                   <PrivateRoute>
                     <Home />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/cap/:id"
+                element={
+                  <PrivateRoute>
+                    <Cap />
                   </PrivateRoute>
                 }
               />
