@@ -106,7 +106,7 @@ export default function Account() {
           <div className="max-w-xl mx-auto mt-10 ">
             <form
               ref={formRef}
-              className="px-8 py-6 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
+              className="px-6 md:px-8 py-4 md:py-6 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
               <h1 className="mb-5 text-2xl">
                 Your personal <span className="text-purple-500">account</span>
               </h1>
@@ -141,7 +141,7 @@ export default function Account() {
                     {dateTime}
                   </div>
                 </div>
-                <div>
+                <div className="flex items-center">
                   <Avatar path={profile?.avatar_url} size="large" />
                 </div>
               </div>
@@ -214,7 +214,9 @@ export default function Account() {
                   {dateTime}
                 </p>
               </div>
-              <Avatar path={profile?.avatar_url} size="large" />
+              <div className="flex items-center">
+                <Avatar path={profile?.avatar_url} size="large" />
+              </div>
             </div>
             <button
               onClick={startEditingHandler}

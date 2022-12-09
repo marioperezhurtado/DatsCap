@@ -3,6 +3,7 @@ import useDb from '../../contexts/DbContext'
 import useTimestamp from '../../hooks/useTimestamp'
 
 import Avatar from '../Avatar/Avatar'
+import CommentActions from '../CommentActions/CommentActions'
 
 export default function CommentItem({ comment }) {
   if (!comment) return
@@ -33,7 +34,10 @@ export default function CommentItem({ comment }) {
       <Avatar path={profile.avatar_url} size="small" />
       <p className="font-bold">@{profile.username}</p>
       <p className="ml-3">{comment.text}</p>
-      <p className="w-full text-zinc-500 text-right text-sm">{date}</p>
+      <div className="w-full text-zinc-500 text-right text-sm flex justify-between">
+        <p>{date}</p>
+        <CommentActions comment={comment} />
+      </div>
     </div>
   )
 }

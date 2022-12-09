@@ -48,32 +48,37 @@ export default function WriteCap() {
 
   if (isOpen) {
     return (
-      <form
-        ref={formRef}
-        onSubmit={writeCapHandler}
-        className="fixed z-10 flex flex-col w-11/12 p-3 pb-0 border rounded-br-none shadow-md md:bottom-32 bottom-5 right-5 md:right-20 rounded-2xl md:w-96 border-zinc-500 bg-zinc-800 hover:shadow-lg">
-        <div className="flex items-center mb-2 gap-x-2">
-          <Avatar path={profile?.avatar_url} size="small" />
-          {profile?.username && <p>@{profile.username}</p>}
-        </div>
-        <textarea
-          type="text"
-          name="capText"
-          className="h-32 px-4 py-2 bg-transparent border rounded-md resize-none border-zinc-500 focus:outline-none"
-          placeholder="Type something..."
-        />
-        <div className="flex gap-2 my-2 ml-auto ">
-          <button
-            type="button"
-            onClick={toggleOpenHandler}
-            className="px-2 py-1 transition border rounded-md border-zinc-600 w-fit hover:bg-slate-500 bg-neutral-800">
-            Cancel
-          </button>
-          <button className="px-2 py-1 transition border rounded-md border-zinc-600 w-fit hover:bg-slate-500 bg-neutral-800">
-            Create
-          </button>
-        </div>
-      </form>
+      <>
+        <div
+          className="fixed top-0 left-0 w-screen min-h-screen bg-black bg-opacity-50 text-center z-10 md:hidden"
+          onClick={toggleOpenHandler}></div>
+        <form
+          ref={formRef}
+          onSubmit={writeCapHandler}
+          className="fixed z-10 flex flex-col w-11/12 p-3 pb-0 border rounded-br-none shadow-md md:bottom-32 bottom-5 right-5 md:right-20 rounded-2xl md:w-96 border-zinc-500 bg-zinc-800 hover:shadow-lg">
+          <div className="flex items-center mb-2 gap-x-2">
+            <Avatar path={profile?.avatar_url} size="small" />
+            {profile?.username && <p>@{profile.username}</p>}
+          </div>
+          <textarea
+            type="text"
+            name="capText"
+            className="h-32 px-4 py-2 bg-transparent border rounded-md resize-none border-zinc-500 focus:outline-none"
+            placeholder="Type something..."
+          />
+          <div className="flex gap-2 my-2 ml-auto ">
+            <button
+              type="button"
+              onClick={toggleOpenHandler}
+              className="px-2 py-1 transition border rounded-md border-zinc-600 w-fit hover:bg-slate-500 bg-neutral-800">
+              Cancel
+            </button>
+            <button className="px-2 py-1 transition border rounded-md border-zinc-600 w-fit hover:bg-slate-600 bg-slate-500 ">
+              Create
+            </button>
+          </div>
+        </form>
+      </>
     )
   }
 

@@ -9,7 +9,7 @@ export default function Modal({ children, onCancel, onConfirm }) {
         <div className="flex gap-2 mt-8 w-fit ml-auto">
           <button
             onClick={onCancel}
-            className="border px-2 py-1 rounded-md border-zinc-600 hover:bg-slate-500 transition">
+            className="border px-2 py-1 rounded-md border-zinc-600 hover:bg-slate-500 transition bg-neutral-800">
             Cancel
           </button>
           <button
