@@ -34,7 +34,7 @@ export default function SignIn() {
       <form
         ref={formRef}
         onSubmit={signInHandler}
-        className="flex flex-col max-w-sm gap-4 px-6 py-4 mx-auto border rounded-md shadow-md border-zinc-600">
+        className="flex flex-col max-w-sm gap-4 px-6 py-4 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800">
         <h1 className="text-xl font-bold text-center">Welcome Back</h1>
         <SocialLogin />
         <div className="flex flex-col gap-1">

@@ -3,7 +3,7 @@ import { useState } from 'react'
 const AVATAR_SIZES = {
   small: 'w-8',
   medium: 'w-12',
-  large: 'w-32'
+  large: 'w-20 md:w-32'
 }
 
 export default function Avatar({ path, size }) {

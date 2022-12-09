@@ -22,7 +22,7 @@ export default function CommentList({ comments }) {
   ))
 
   return (
-    <ul className="flex flex-col gap-3 px-6 py-4 mt-10 border rounded-md shadow-md bg-zinc-800 border-zinc-600 hover:shadow-xl">
+    <ul className="flex flex-col gap-3 px-4 md:px-6 py-4 mt-10 border rounded-md shadow-md bg-zinc-800 border-zinc-600 hover:shadow-xl">
       <h2 className="mb-2 text-xl">
         Comments : <span className="ml-1 text-purple-500">{commentCount}</span>
       </h2>

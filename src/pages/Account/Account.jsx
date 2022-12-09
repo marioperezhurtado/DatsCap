@@ -102,65 +102,126 @@ export default function Account() {
     return (
       <>
         <Header />
+        <div className="px-2">
+          <div className="max-w-xl mx-auto mt-10 ">
+            <form
+              ref={formRef}
+              className="px-8 py-6 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
+              <h1 className="mb-5 text-2xl">
+                Your personal <span className="text-purple-500">account</span>
+              </h1>
+              <div className="flex justify-between flex-wrap-reverse gap-4">
+                <div>
+                  <div className="flex items-center mb-3 text-xl text-purple-500 border-b border-slate-400">
+                    @
+                    <input
+                      name="username"
+                      className="bg-transparent focus:outline-none"
+                      defaultValue={profile.username}
+                    />
+                  </div>
+                  <div className="flex items-center gap-3 text-lg border-b border-slate-400">
+                    <img
+                      src="/account.svg"
+                      alt="Account name"
+                      className="w-5"
+                    />
+                    <input
+                      name="fullName"
+                      className="w-full bg-transparent focus:outline-none "
+                      defaultValue={profile?.full_name || 'Your Name'}
+                    />
+                  </div>
+                  <div className="flex items-center gap-3 text-lg">
+                    <img src="/email.svg" alt="Email" className="w-5" />
+                    {currentUser.email}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <img src="/calendar.svg" alt="Created at" className="w-5" />
+                    {dateTime}
+                  </div>
+                </div>
+                <div>
+                  <Avatar path={profile?.avatar_url} size="large" />
+                </div>
+              </div>
+              <div className="flex">
+                <button
+                  onClick={cancelEditingHandler}
+                  type="button"
+                  className="block px-2 py-1 mt-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+                  Cancel
+                </button>
+                <button
+                  disabled={isEditingProfile}
+                  onClick={editProfileHandler}
+                  className="block px-2 py-1 mt-5 ml-2 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+                  Save changes
+                </button>
+              </div>
+              {validationError && (
+                <p className="mt-3 text-red-400">{validationError}</p>
+              )}
+              {editError && (
+                <p className="mt-3 text-red-400">{editError.message}</p>
+              )}
+            </form>
+            <AccountExample
+              avatar_url={profile?.avatar_url}
+              username={profile?.username}
+              full_name={profile?.full_name}
+            />
+            <Link to="/">
+              <button className="block px-2 py-1 mx-auto mt-10 transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+                Back to Home
+              </button>
+            </Link>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Header />
+      <div className="px-2">
         <div className="max-w-xl mx-auto mt-10 ">
-          <form
-            ref={formRef}
-            className="px-8 py-6 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
-            <div className="flex justify-between">
-              <div className="flex flex-col gap-2">
-                <h1 className="mb-5 text-2xl">
-                  Your personal <span className="text-purple-500">account</span>
-                </h1>
-                <div className="flex items-center mb-3 text-xl text-purple-500 border-b border-slate-400">
-                  @
-                  <input
-                    name="username"
-                    className="bg-transparent focus:outline-none"
-                    defaultValue={profile.username}
-                  />
-                </div>
-                <div className="flex items-center gap-3 text-lg border-b border-slate-400">
+          <div className="px-6 md:px-8 py-4 md:py-6 mb-10 border rounded-md shadow-md border-zinc-600 hover:shadow-xl bg-zinc-800">
+            <h1 className="mb-5 text-2xl">
+              Your personal <span className="text-purple-500">account</span>
+            </h1>
+            <div className="flex justify-between flex-wrap-reverse gap-4">
+              <div>
+                <p className="mb-3 text-xl text-purple-500 border-b border-transparent">
+                  @{profile.username}
+                </p>
+
+                <p className="flex items-center gap-3 text-lg border-b border-transparent">
                   <img src="/account.svg" alt="Account name" className="w-5" />
-                  <input
-                    name="fullName"
-                    className="w-full bg-transparent focus:outline-none "
-                    defaultValue={profile?.full_name || 'Your Name'}
-                  />
-                </div>
-                <div className="flex items-center gap-3 text-lg">
+                  {(profile?.full_name && profile?.full_name) || (
+                    <span className="text-zinc-500">Your Name</span>
+                  )}
+                </p>
+
+                <p className="flex items-center gap-3 text-lg">
                   <img src="/email.svg" alt="Email" className="w-5" />
                   {currentUser.email}
-                </div>
-                <div className="flex items-center gap-3">
+                </p>
+
+                <p className="flex items-center gap-3">
                   <img src="/calendar.svg" alt="Created at" className="w-5" />
                   {dateTime}
-                </div>
+                </p>
               </div>
-              <div className="mt-12">
-                <Avatar path={profile?.avatar_url} size="large" />
-              </div>
+              <Avatar path={profile?.avatar_url} size="large" />
             </div>
-            <div className="flex">
-              <button
-                onClick={cancelEditingHandler}
-                type="button"
-                className="block px-2 py-1 mt-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
-                Cancel
-              </button>
-              <button
-                disabled={isEditingProfile}
-                onClick={editProfileHandler}
-                className="block px-2 py-1 mt-5 ml-2 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
-                Save changes
-              </button>
-            </div>
-            {validationError && (
-              <p className="mt-3 text-red-400">{validationError}</p>
-            )}
-            {editError && (
-              <p className="mt-3 text-red-400">{editError.message}</p>
-            )}
-          </form>
+            <button
+              onClick={startEditingHandler}
+              className="block px-2 py-1 mt-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+              Edit account
+            </button>
+          </div>
           <AccountExample
             avatar_url={profile?.avatar_url}
             username={profile?.username}
@@ -172,61 +233,6 @@ export default function Account() {
             </button>
           </Link>
         </div>
-      </>
-    )
-  }
-
-  return (
-    <>
-      <Header />
-      <div className="max-w-xl mx-auto mt-10">
-        <div className="px-8 py-6 mb-10 border rounded-md shadow-md border-zinc-600 hover:shadow-xl bg-zinc-800">
-          <div className="flex justify-between">
-            <div className="flex flex-col gap-2">
-              <h1 className="mb-5 text-2xl">
-                Your personal <span className="text-purple-500">account</span>
-              </h1>
-              <p className="mb-3 text-xl text-purple-500 border-b border-transparent">
-                @{profile.username}
-              </p>
-
-              <p className="flex items-center gap-3 text-lg border-b border-transparent">
-                <img src="/account.svg" alt="Account name" className="w-5" />
-                {(profile?.full_name && profile?.full_name) || (
-                  <span className="text-zinc-500">Your Name</span>
-                )}
-              </p>
-
-              <p className="flex items-center gap-3 text-lg">
-                <img src="/email.svg" alt="Email" className="w-5" />
-                {currentUser.email}
-              </p>
-
-              <p className="flex items-center gap-3">
-                <img src="/calendar.svg" alt="Created at" className="w-5" />
-                {dateTime}
-              </p>
-            </div>
-            <div className="mt-12">
-              <Avatar path={profile?.avatar_url} size="large" />
-            </div>
-          </div>
-          <button
-            onClick={startEditingHandler}
-            className="block px-2 py-1 mt-5 text-sm transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
-            Edit account
-          </button>
-        </div>
-        <AccountExample
-          avatar_url={profile?.avatar_url}
-          username={profile?.username}
-          full_name={profile?.full_name}
-        />
-        <Link to="/">
-          <button className="block px-2 py-1 mx-auto mt-10 transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
-            Back to Home
-          </button>
-        </Link>
       </div>
     </>
   )

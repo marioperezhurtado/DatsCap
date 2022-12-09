@@ -58,26 +58,6 @@ export function DbProvider({ children }) {
     if (error) throw Error('Failed to update profile')
   }
 
-  const getLikes = async ({ cap_id }) => {
-    const { count, error } = await supabase
-      .from('reactions')
-      .select('*', { count: 'exact', head: true })
-      .match({ cap_id, reaction: true })
-
-    if (error) throw Error('Failed to get likes')
-    return count
-  }
-
-  const getDislikes = async ({ cap_id }) => {
-    const { count, error } = await supabase
-      .from('reactions')
-      .select('*', { count: 'exact', head: true })
-      .match({ cap_id, reaction: false })
-
-    if (error) throw Error('Failed to get dislikes')
-    return count
-  }
-
   const addReaction = async ({ cap_id, user_id, reaction }) => {
     const { error } = await supabase.from('reactions').upsert({
       cap_id,
@@ -85,6 +65,36 @@ export function DbProvider({ children }) {
       reaction
     })
     if (error) throw Error('Failed to add reaction')
+  }
+
+  const getLikeCount = async ({ cap_id }) => {
+    const { count, error } = await supabase
+      .from('reactions')
+      .select('*', { count: 'exact', head: true })
+      .match({ cap_id, reaction: true })
+
+    if (error) throw Error('Failed to get like count')
+    return count
+  }
+
+  const getDislikeCount = async ({ cap_id }) => {
+    const { count, error } = await supabase
+      .from('reactions')
+      .select('*', { count: 'exact', head: true })
+      .match({ cap_id, reaction: false })
+
+    if (error) throw Error('Failed to get dislike count')
+    return count
+  }
+
+  const getCommentCount = async ({ cap_id }) => {
+    const { count, error } = await supabase
+      .from('comments')
+      .select('*', { count: 'exact', head: true })
+      .eq('cap_id', cap_id)
+
+    if (error) throw Error('Failed to get comment count')
+    return count
   }
 
   const getComments = async ({ id }) => {
@@ -141,9 +151,10 @@ export function DbProvider({ children }) {
     writeCap,
     getProfile,
     updateProfile,
-    getLikes,
-    getDislikes,
     addReaction,
+    getLikeCount,
+    getDislikeCount,
+    getCommentCount,
     getComments,
     addComment,
     capsListener,
