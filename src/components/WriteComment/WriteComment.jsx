@@ -29,7 +29,10 @@ export default function WriteComment() {
   }
 
   return (
-    <form ref={formRef} onSubmit={addCommentHandler} className="flex gap-1">
+    <form
+      ref={formRef}
+      onSubmit={addCommentHandler}
+      className="flex flex-wrap gap-1">
       <input
         type="text"
         name="comment"
@@ -38,7 +41,7 @@ export default function WriteComment() {
       />
       <button
         disabled={isLoading}
-        className="px-4 text-sm border rounded-md border-zinc-600 bg-neutral-800">
+        className="px-4 py-1 text-sm border rounded-md border-zinc-600 bg-neutral-800">
         Comment
       </button>
     </form>

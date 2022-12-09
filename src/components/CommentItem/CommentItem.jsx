@@ -34,7 +34,7 @@ export default function CommentItem({ comment }) {
       <Avatar path={profile.avatar_url} size="small" />
       <p className="font-bold">@{profile.username}</p>
       <p className="ml-3">{comment.text}</p>
-      <div className="w-full text-zinc-500 text-right text-sm flex justify-between">
+      <div className="w-full text-zinc-500 text-right text-sm flex justify-between items-center">
         <p>{date}</p>
         <CommentActions comment={comment} />
       </div>
