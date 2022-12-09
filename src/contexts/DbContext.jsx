@@ -37,6 +37,12 @@ export function DbProvider({ children }) {
     if (error) throw Error('Failed to write cap')
   }
 
+  const deleteCap = async ({ cap_id }) => {
+    const { error } = await supabase.from('caps').delete().eq('id', cap_id)
+
+    if (error) throw Error('Failed to delete cap')
+  }
+
   const getProfile = async ({ user_id }) => {
     const { data, error } = await supabase
       .from('profiles')
@@ -149,6 +155,7 @@ export function DbProvider({ children }) {
     getCap,
     getLatestCaps,
     writeCap,
+    deleteCap,
     getProfile,
     updateProfile,
     addReaction,

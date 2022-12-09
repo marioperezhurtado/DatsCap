@@ -1,10 +1,21 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import useAuth from '../../contexts/AuthContext'
 import useDb from '../../contexts/DbContext'
 
-export default function CapActions({ cap_id }) {
-  const { getLikeCount, getDislikeCount, addReaction, getCommentCount } =
-    useDb()
+import Modal from '../../layout/Modal/Modal'
+
+export default function CapActions({ cap }) {
+  const {
+    getLikeCount,
+    getDislikeCount,
+    getCommentCount,
+    addReaction,
+    deleteCap
+  } = useDb()
+
+  const cap_id = cap?.id
+  const user_id = cap?.user_id
 
   const { data: likeCount } = useQuery({
     queryKey: ['likeCount', cap_id],
@@ -37,40 +48,74 @@ export default function CapActions({ cap_id }) {
     e.stopPropagation()
     addReaction({ cap_id, user_id: currentUser?.id, reaction: false })
   }
+  const deleteCapHandler = (e) => {
+    e.stopPropagation()
+    deleteCap({ cap_id })
+  }
+
+  const [deleting, setDeleting] = useState(false)
+  const startDeleting = (e) => {
+    e.stopPropagation()
+    setDeleting(true)
+  }
+  const stopDeleting = (e) => {
+    e.stopPropagation()
+    setDeleting(false)
+  }
 
   return (
     <>
-      <ul className="relative flex items-center gap-2">
+      <ul className="relative flex items-center">
         <li className="flex items-center">
           <button onClick={likeHandler}>
             <img src="/like.svg" alt="Like" className="w-8 h-8 p-2" />
           </button>
-          <span className="text-sm text-zinc-500">
-            {likeCount > 0 && likeCount}
-          </span>
+          {likeCount > 0 && (
+            <span className="mr-2 text-sm text-zinc-500">{likeCount}</span>
+          )}
         </li>
         <li className="flex items-center">
           <button onClick={dislikeHandler}>
             <img src="/dislike.svg" alt="Dislike" className="w-8 h-8 p-2" />
           </button>
-          <span className="text-sm text-zinc-500">
-            {dislikeCount > 0 && dislikeCount}
-          </span>
+          {dislikeCount > 0 && (
+            <span className="mr-2 text-sm text-zinc-500">{dislikeCount}</span>
+          )}
         </li>
         <li className="flex items-center">
           <button>
             <img src="/comment.svg" alt="Comment" className="p-2 w-9 h-9" />
           </button>
-          <span className="text-sm text-zinc-500">
-            {commentCount > 0 && commentCount}
-          </span>
+          {commentCount > 0 && (
+            <span className="mr-2 text-sm text-zinc-500">{commentCount}</span>
+          )}
         </li>
         <li className="flex items-center">
           <button>
             <img src="/save.svg" alt="Save" className="p-2 w-9 h-9" />
           </button>
         </li>
+        {currentUser?.id === user_id && (
+          <li className="flex items-center">
+            <button onClick={startDeleting}>
+              <img src="/delete.svg" alt="Delete" className="p-2 w-9 h-9" />
+            </button>
+          </li>
+        )}
       </ul>
+
+      {deleting && (
+        <Modal onCancel={stopDeleting} onConfirm={deleteCapHandler}>
+          <h1 className="text-xl mb-5">
+            Are you sure you want to delete this cap?
+          </h1>
+          <p>
+            This cap will be deleted
+            <span className="text-purple-500 text-lg "> permanently</span>
+          </p>
+          <p className="mt-5 ml-3 font-bold">" {cap.text} "</p>
+        </Modal>
+      )}
     </>
   )
 }

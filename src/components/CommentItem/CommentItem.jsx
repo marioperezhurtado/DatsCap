@@ -29,7 +29,7 @@ export default function CommentItem({ comment }) {
   if (!profile?.username) return
 
   return (
-    <div className="flex flex-wrap items-center gap-x-2 px-2 py-4 border rounded-md shadow-md border-zinc-600 bg-neutral-800 md:px-6">
+    <div className="flex flex-wrap items-center gap-x-2 px-2 pt-4 pb-1 border rounded-md shadow-md border-zinc-600 bg-neutral-800 md:px-6">
       <Avatar path={profile.avatar_url} size="small" />
       <p className="font-bold">@{profile.username}</p>
       <p className="ml-3">{comment.text}</p>
