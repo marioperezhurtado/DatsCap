@@ -72,7 +72,7 @@ export default function Account() {
     return (
       <>
         <Header />
-        <div className="max-w-xl mx-auto mt-20 ">
+        <div className="max-w-xl mx-auto mt-10 ">
           <h1 className="mb-10 text-2xl ">
             Your personal <span className="text-purple-500">account</span>
           </h1>
@@ -86,7 +86,7 @@ export default function Account() {
     return (
       <>
         <Header />
-        <div className="max-w-xl px-8 py-6 mx-auto mt-20 mb-10 border rounded-md shadow-md hover:shadow-xl border-zinc-600 bg-zinc-800">
+        <div className="max-w-xl px-8 py-6 mx-auto mt-10 mb-10 border rounded-md shadow-md hover:shadow-xl border-zinc-600 bg-zinc-800">
           <h1 className="mb-10 text-2xl ">
             Your personal <span className="text-purple-500">account</span>
           </h1>
@@ -102,7 +102,7 @@ export default function Account() {
     return (
       <>
         <Header />
-        <div className="max-w-xl mx-auto mt-20 ">
+        <div className="max-w-xl mx-auto mt-10 ">
           <form
             ref={formRef}
             className="px-8 py-6 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
@@ -179,7 +179,7 @@ export default function Account() {
   return (
     <>
       <Header />
-      <div className="max-w-xl mx-auto mt-20">
+      <div className="max-w-xl mx-auto mt-10">
         <div className="px-8 py-6 mb-10 border rounded-md shadow-md border-zinc-600 hover:shadow-xl bg-zinc-800">
           <div className="flex justify-between">
             <div className="flex flex-col gap-2">

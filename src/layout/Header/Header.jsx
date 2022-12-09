@@ -12,7 +12,8 @@ export default function Header() {
 
   const { data: profile } = useQuery({
     queryKey: ['profile', id],
-    queryFn: () => getProfile({ user_id: id })
+    queryFn: () => getProfile({ user_id: id }),
+    refetchOnWindowFocus: false
   })
 
   const username = (profile?.username && `@${profile?.username}`) || 'Account'

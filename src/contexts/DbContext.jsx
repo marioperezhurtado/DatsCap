@@ -98,12 +98,38 @@ export function DbProvider({ children }) {
     return data
   }
 
+  const addComment = async ({ cap_id, user_id, text }) => {
+    const { error } = await supabase.from('comments').insert({
+      cap_id,
+      user_id,
+      text
+    })
+
+    if (error) throw Error('Failed to add comment')
+  }
+
   const capsListener = (callback) => {
     return supabase
       .channel('public:caps')
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'caps' },
+        callback
+      )
+      .subscribe()
+  }
+
+  const commentsListener = ({ cap_id, callback }) => {
+    return supabase
+      .channel(`public:comments:cap_id=eq.${cap_id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'comments',
+          filter: `cap_id=eq.${cap_id}`
+        },
         callback
       )
       .subscribe()
@@ -119,7 +145,9 @@ export function DbProvider({ children }) {
     getDislikes,
     addReaction,
     getComments,
-    capsListener
+    addComment,
+    capsListener,
+    commentsListener
   }
 
   return <DbContext.Provider value={dbValues}>{children}</DbContext.Provider>

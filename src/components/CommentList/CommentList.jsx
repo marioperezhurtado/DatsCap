@@ -1,7 +1,7 @@
 import CommentItem from '../CommentItem/CommentItem'
 import WriteComment from '../WriteComment/WriteComment'
 
-export default function CommentList({ comments, cap_id }) {
+export default function CommentList({ comments }) {
   if (!comments || !comments.length)
     return (
       <ul className="px-6 py-4 mt-10 border rounded-md shadow-md bg-zinc-800 border-zinc-600 hover:shadow-xl">
@@ -9,7 +9,7 @@ export default function CommentList({ comments, cap_id }) {
           There are <span className="text-purple-500">no comments</span> yet...
         </h2>
         <p className="mb-4">Be the first to share what you think!</p>
-        <WriteComment cap_id={cap_id} />
+        <WriteComment />
       </ul>
     )
 
@@ -26,7 +26,7 @@ export default function CommentList({ comments, cap_id }) {
       <h2 className="mb-2 text-xl">
         Comments : <span className="ml-1 text-purple-500">{commentCount}</span>
       </h2>
-      <WriteComment cap_id={cap_id} />
+      <WriteComment />
       {commentItems}
     </ul>
   )

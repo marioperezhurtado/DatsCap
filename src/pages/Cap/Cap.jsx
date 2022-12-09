@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import useDb from '../../contexts/DbContext'
@@ -11,7 +12,7 @@ import Loader from '../../layout/Loader/Loader'
 export default function Cap() {
   const { id } = useParams()
 
-  const { getCap, getComments } = useDb()
+  const { getCap, getComments, commentsListener } = useDb()
 
   const {
     data: cap,
@@ -27,12 +28,22 @@ export default function Cap() {
   const {
     data: comments,
     isLoading: commentsLoading,
-    error: commentsError
+    error: commentsError,
+    refetch
   } = useQuery({
     queryKey: ['comments', id],
     queryFn: () => getComments({ id }),
     refetchOnWindowFocus: false
   })
+
+  useEffect(() => {
+    // Subscribe to realtime comments updates (on this cap only)
+    const commentsSubscription = commentsListener({
+      cap_id: id,
+      callback: refetch
+    })
+    return () => commentsSubscription.unsubscribe()
+  }, [])
 
   if (capLoading)
     return (
