@@ -21,7 +21,7 @@ export default function Header() {
   const { isLoading, mutate: logOut } = useMutation({ mutationFn: signOut })
 
   return (
-    <header className="flex items-center justify-between px-10 py-6 border-b shadow-md bg-zinc-800 border-zinc-600 text-slate-200 md:px-32 lg:px-48">
+    <header className="flex items-center justify-between px-10 py-4 md:py-6 border-b shadow-md bg-zinc-800 border-zinc-600 text-slate-200 md:px-32 lg:px-48">
       <Link to="/">
         <h1 className="text-2xl font-semibold">
           Dats<span className="text-purple-500">Cap</span>

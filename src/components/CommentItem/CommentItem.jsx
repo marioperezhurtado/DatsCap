@@ -19,23 +19,15 @@ export default function CommentItem({ comment }) {
     refetchOnWindowFocus: false
   })
 
-  if (!profile) {
-    return (
-      <div className="px-6 py-4 border rounded-md shadow-md border-zinc-500 bg-neutral-800">
-        <p>{comment.text}</p>
-      </div>
-    )
-  }
-
   if (!profile?.username) return
 
   return (
-    <div className="flex flex-wrap items-center gap-x-2 px-2 pt-4 pb-1 border rounded-md shadow-md border-zinc-600 bg-neutral-800 md:px-6">
+    <div className="flex flex-wrap items-center gap-2 px-2 pt-4 pb-1 border rounded-md shadow-md border-zinc-600 bg-neutral-800 md:px-6">
       <Avatar path={profile.avatar_url} size="small" />
       <p className="font-bold">@{profile.username}</p>
       <p className="ml-3">{comment.text}</p>
-      <div className="w-full text-zinc-500 text-right text-sm flex justify-between items-center">
-        <p>{date}</p>
+      <div className="flex items-center justify-between w-full text-sm text-right text-zinc-500">
+        <p className="ml-3">{date}</p>
         <CommentActions comment={comment} />
       </div>
     </div>

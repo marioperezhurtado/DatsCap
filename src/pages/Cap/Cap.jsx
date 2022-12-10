@@ -61,7 +61,7 @@ export default function Cap() {
       <>
         <Header />
         <Navbar />
-        <div className="px-2 mt-10 ">
+        <div className="px-2 mt-5 md:mt-10">
           <div className="max-w-xl mx-auto">
             <CapItem cap={cap} />
             <Loader />
@@ -75,7 +75,7 @@ export default function Cap() {
       <>
         <Header />
         <Navbar />
-        <div className="px-2 mt-10">
+        <div className="px-2 mt-5 md:mt-10">
           <div className="max-w-xl mx-auto">
             <CapItem cap={cap} />
           </div>
@@ -87,7 +87,7 @@ export default function Cap() {
     <>
       <Header />
       <Navbar />
-      <div className="px-2 mt-10 ">
+      <div className="px-2 mt-5 md:mt-10">
         <div className="max-w-xl mx-auto">
           <CapItem cap={cap} />
           <CommentList comments={comments} />

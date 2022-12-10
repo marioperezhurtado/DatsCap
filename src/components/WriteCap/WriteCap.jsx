@@ -50,8 +50,8 @@ export default function WriteCap() {
     return (
       <>
         <div
-          className="fixed top-0 left-0 w-screen min-h-screen bg-black bg-opacity-50 text-center z-10 md:hidden"
-          onClick={toggleOpenHandler}></div>
+          onClick={toggleOpenHandler}
+          className="fixed top-0 left-0 z-10 w-screen min-h-screen text-center bg-black bg-opacity-60"></div>
         <form
           ref={formRef}
           onSubmit={writeCapHandler}

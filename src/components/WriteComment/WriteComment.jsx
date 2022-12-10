@@ -37,11 +37,11 @@ export default function WriteComment() {
         type="text"
         name="comment"
         placeholder="Add a comment..."
-        className="flex-grow px-3 py-1 border rounded-md border-zinc-600 text-black"
+        className="flex-grow w-full px-3 py-2 text-black border rounded-md md:py-1 md:w-fit border-zinc-600"
       />
       <button
         disabled={isLoading}
-        className="px-4 py-1 text-sm border rounded-md border-zinc-600 bg-neutral-800">
+        className="w-full px-4 py-2 border rounded-md md:w-fit text-md md:py-1 border-zinc-600 bg-neutral-800">
         Comment
       </button>
     </form>

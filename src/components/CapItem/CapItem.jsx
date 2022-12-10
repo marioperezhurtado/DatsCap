@@ -21,15 +21,6 @@ export default function CapItem({ cap }) {
 
   const dateTime = useTimestamp(cap.created_at)
 
-  if (!profile) {
-    return (
-      <div className="px-4 py-5 mx-auto border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
-        <p className="mb-3 text-lg">{cap.text}</p>
-        <span className="block text-sm text-right">{dateTime}</span>
-      </div>
-    )
-  }
-
   const goToCapHandler = () => navigate(`/cap/${cap.id}`)
 
   if (!profile?.username) return
@@ -37,7 +28,7 @@ export default function CapItem({ cap }) {
   return (
     <div
       onClick={goToCapHandler}
-      className="flex gap-4 px-6 pt-5 pb-2 mx-auto border rounded-md shadow-md cursor-pointer border-zinc-600 bg-zinc-800 hover:shadow-xl relative">
+      className="relative flex gap-4 px-2 pt-3 pb-1 mx-auto border rounded-md shadow-md cursor-pointer md:px-6 md:pt-5 md:pb-2 border-zinc-600 bg-zinc-800 hover:shadow-xl">
       <Avatar path={profile?.avatar_url} size="medium" />
       <div className="flex-grow">
         <div className="flex flex-wrap mb-3 gap-x-3">
@@ -51,7 +42,7 @@ export default function CapItem({ cap }) {
             </p>
           )}
         </div>
-        <p className="mb-3 text-lg">{cap.text}</p>
+        <p className="mb-3">{cap.text}</p>
         <div className="flex flex-wrap items-center justify-between gap-1">
           <span className="py-2 text-sm text-zinc-500">{dateTime}</span>
           <CapActions cap={cap} />

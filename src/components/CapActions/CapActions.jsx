@@ -106,14 +106,15 @@ export default function CapActions({ cap }) {
 
       {deleting && (
         <Modal onCancel={stopDeleting} onConfirm={deleteCapHandler}>
-          <h1 className="text-xl mb-5">
+          <h1 className="mb-5 text-xl">
             Are you sure you want to delete this cap?
           </h1>
           <p>
-            This cap will be deleted
-            <span className="text-purple-500 text-lg "> permanently</span>
+            This cap will be
+            <span className="text-lg text-purple-500 "> permanently </span>
+            deleted
           </p>
-          <p className="mt-5 ml-3 font-bold">" {cap.text} "</p>
+          <p className="mt-3 ml-3 font-bold md:mt-5">" {cap.text} "</p>
         </Modal>
       )}
     </>

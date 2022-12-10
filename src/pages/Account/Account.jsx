@@ -72,7 +72,7 @@ export default function Account() {
     return (
       <>
         <Header />
-        <div className="max-w-xl mx-auto mt-10 ">
+        <div className="max-w-xl mx-auto mt-5 md:mt-10 ">
           <h1 className="mb-10 text-2xl ">
             Your personal <span className="text-purple-500">account</span>
           </h1>
@@ -86,14 +86,19 @@ export default function Account() {
     return (
       <>
         <Header />
-        <div className="max-w-xl px-8 py-6 mx-auto mt-10 mb-10 border rounded-md shadow-md hover:shadow-xl border-zinc-600 bg-zinc-800">
+        <div className="max-w-xl px-8 py-6 mx-auto mt-5 mb-10 border rounded-md shadow-md md:mt-10 hover:shadow-xl border-zinc-600 bg-zinc-800">
           <h1 className="mb-10 text-2xl ">
             Your personal <span className="text-purple-500">account</span>
           </h1>
-          <p className="text-red-400">
+          <p className="text-lg text-red-400">
             Sorry, we could not get your profile. Try again later
           </p>
         </div>
+        <Link to="/">
+          <button className="block px-2 py-1 mx-auto mt-5 transition-all border rounded-md md:mt-10 border-zinc-600 hover:bg-slate-500">
+            Back to Home
+          </button>
+        </Link>
       </>
     )
   }
@@ -103,14 +108,14 @@ export default function Account() {
       <>
         <Header />
         <div className="px-2">
-          <div className="max-w-xl mx-auto mt-10 ">
+          <div className="max-w-xl mx-auto mt-5 md:mt-10 ">
             <form
               ref={formRef}
-              className="px-6 md:px-8 py-4 md:py-6 mb-10 border rounded-md shadow-md border-zinc-600 bg-zinc-800 hover:shadow-xl">
+              className="px-6 py-4 mb-5 border rounded-md shadow-md md:mb-10 md:px-8 md:py-6 border-zinc-600 bg-zinc-800 hover:shadow-xl">
               <h1 className="mb-5 text-2xl">
                 Your personal <span className="text-purple-500">account</span>
               </h1>
-              <div className="flex justify-between flex-wrap-reverse gap-4">
+              <div className="flex flex-wrap-reverse justify-between gap-4">
                 <div>
                   <div className="flex items-center mb-3 text-xl text-purple-500 border-b border-slate-400">
                     @
@@ -172,7 +177,7 @@ export default function Account() {
               full_name={profile?.full_name}
             />
             <Link to="/">
-              <button className="block px-2 py-1 mx-auto mt-10 transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+              <button className="block px-2 py-1 mx-auto mt-5 transition-all border rounded-md md:mt-10 border-zinc-600 hover:bg-slate-500">
                 Back to Home
               </button>
             </Link>
@@ -186,12 +191,12 @@ export default function Account() {
     <>
       <Header />
       <div className="px-2">
-        <div className="max-w-xl mx-auto mt-10 ">
-          <div className="px-6 md:px-8 py-4 md:py-6 mb-10 border rounded-md shadow-md border-zinc-600 hover:shadow-xl bg-zinc-800">
+        <div className="max-w-xl mx-auto mt-5 md:mt-10 ">
+          <div className="px-6 py-4 mb-5 border rounded-md shadow-md md:mb-10 md:px-8 md:py-6 border-zinc-600 hover:shadow-xl bg-zinc-800">
             <h1 className="mb-5 text-2xl">
               Your personal <span className="text-purple-500">account</span>
             </h1>
-            <div className="flex justify-between flex-wrap-reverse gap-4">
+            <div className="flex flex-wrap-reverse justify-between gap-4">
               <div>
                 <p className="mb-3 text-xl text-purple-500 border-b border-transparent">
                   @{profile.username}
@@ -230,7 +235,7 @@ export default function Account() {
             full_name={profile?.full_name}
           />
           <Link to="/">
-            <button className="block px-2 py-1 mx-auto mt-10 transition-all border rounded-md border-zinc-600 hover:bg-slate-500">
+            <button className="block px-2 py-1 mx-auto mt-5 transition-all border rounded-md md:mt-10 border-zinc-600 hover:bg-slate-500">
               Back to Home
             </button>
           </Link>
