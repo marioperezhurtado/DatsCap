@@ -43,6 +43,36 @@ export function DbProvider({ children }) {
     if (error) throw Error('Failed to delete cap')
   }
 
+  const getComments = async ({ id }) => {
+    const { data, error } = await supabase
+      .from('comments')
+      .select()
+      .eq('cap_id', id)
+      .order('created_at', { ascending: false })
+
+    if (error) throw Error('No comments could be found')
+    return data
+  }
+
+  const addComment = async ({ cap_id, user_id, text }) => {
+    const { error } = await supabase.from('comments').insert({
+      cap_id,
+      user_id,
+      text
+    })
+
+    if (error) throw Error('Failed to add comment')
+  }
+
+  const deleteComment = async ({ comment_id }) => {
+    const { error } = await supabase
+      .from('comments')
+      .delete()
+      .eq('id', comment_id)
+
+    if (error) throw Error('Failed to delete comment')
+  }
+
   const getProfile = async ({ user_id }) => {
     const { data, error } = await supabase
       .from('profiles')
@@ -103,27 +133,6 @@ export function DbProvider({ children }) {
     return count
   }
 
-  const getComments = async ({ id }) => {
-    const { data, error } = await supabase
-      .from('comments')
-      .select()
-      .eq('cap_id', id)
-      .order('created_at', { ascending: false })
-
-    if (error) throw Error('No comments could be found')
-    return data
-  }
-
-  const addComment = async ({ cap_id, user_id, text }) => {
-    const { error } = await supabase.from('comments').insert({
-      cap_id,
-      user_id,
-      text
-    })
-
-    if (error) throw Error('Failed to add comment')
-  }
-
   const capsListener = (callback) => {
     return supabase
       .channel('public:caps')
@@ -156,14 +165,15 @@ export function DbProvider({ children }) {
     getLatestCaps,
     writeCap,
     deleteCap,
+    getComments,
+    addComment,
+    deleteComment,
     getProfile,
     updateProfile,
     addReaction,
     getLikeCount,
     getDislikeCount,
     getCommentCount,
-    getComments,
-    addComment,
     capsListener,
     commentsListener
   }

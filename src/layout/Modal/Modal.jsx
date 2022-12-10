@@ -6,7 +6,7 @@ export default function Modal({ children, onCancel, onConfirm }) {
         onClick={onCancel}></div>
       <div className="fixed z-10 w-11/12 max-w-lg p-4 -translate-x-1/2 border rounded-md shadow-md top-20 left-1/2 bg-zinc-800 md:px-8 md:py-6 border-zinc-600 hover:shadow-xl">
         {children}
-        <div className="flex gap-2 mt-4 ml-auto md:mt-8 w-fit">
+        <div className="flex gap-2 mt-4 ml-auto md:mt-8 w-fit text-slate-300">
           <button
             onClick={onCancel}
             className="px-2 py-1 transition border rounded-md border-zinc-600 hover:bg-slate-500 bg-neutral-800">

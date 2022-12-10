@@ -109,9 +109,9 @@ export default function CapActions({ cap }) {
           <h1 className="mb-5 text-xl">
             Are you sure you want to delete this cap?
           </h1>
-          <p>
+          <p className="text-lg">
             This cap will be
-            <span className="text-lg text-purple-500 "> permanently </span>
+            <span className=" text-purple-500"> permanently </span>
             deleted
           </p>
           <p className="mt-3 ml-3 font-bold md:mt-5">" {cap.text} "</p>
