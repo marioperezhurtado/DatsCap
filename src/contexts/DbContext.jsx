@@ -94,13 +94,35 @@ export function DbProvider({ children }) {
     if (error) throw Error('Failed to update profile')
   }
 
+  const getUserReaction = async ({ cap_id, user_id }) => {
+    const { data, error } = await supabase
+      .from('reactions')
+      .select('reaction')
+      .match({ cap_id, user_id })
+      .limit(1)
+      .single()
+
+    if (error) throw Error('Failed to get user reaction')
+    return data?.reaction
+  }
+
   const addReaction = async ({ cap_id, user_id, reaction }) => {
     const { error } = await supabase.from('reactions').upsert({
       cap_id,
       user_id,
       reaction
     })
+
     if (error) throw Error('Failed to add reaction')
+  }
+
+  const deleteReaction = async ({ cap_id, user_id }) => {
+    const { error } = await supabase
+      .from('reactions')
+      .delete()
+      .match({ cap_id, user_id })
+
+    if (error) throw Error('Failed to delete reaction')
   }
 
   const getLikeCount = async ({ cap_id }) => {
@@ -170,7 +192,9 @@ export function DbProvider({ children }) {
     deleteComment,
     getProfile,
     updateProfile,
+    getUserReaction,
     addReaction,
+    deleteReaction,
     getLikeCount,
     getDislikeCount,
     getCommentCount,

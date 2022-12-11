@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useState, useEffect } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import useAuth from '../../contexts/AuthContext'
 import useDb from '../../contexts/DbContext'
 
@@ -15,7 +15,9 @@ export default function CapActions({ cap }) {
     getLikeCount,
     getDislikeCount,
     getCommentCount,
+    getUserReaction,
     addReaction,
+    deleteReaction,
     deleteCap
   } = useDb()
 
@@ -45,17 +47,85 @@ export default function CapActions({ cap }) {
 
   const { currentUser } = useAuth()
 
+  const { data: userReaction } = useQuery({
+    queryKey: ['userReaction', cap_id, currentUser?.id],
+    queryFn: () => getUserReaction({ cap_id, user_id: currentUser?.id }),
+    retry: 0,
+    refetchOnWindowFocus: false
+  })
+
+  const [reaction, setReaction] = useState(null)
+
+  useEffect(() => {
+    setReaction(userReaction)
+  }, [userReaction])
+
+  const queryClient = useQueryClient()
+
+  const { mutate: like } = useMutation({
+    mutationFn: () =>
+      addReaction({ cap_id, user_id: currentUser?.id, reaction: true }),
+    onSuccess: () => {
+      setReaction(true)
+      queryClient.setQueryData(['likeCount', cap_id], (likes) => likes + 1)
+      if (reaction === false) {
+        queryClient.setQueryData(
+          ['dislikeCount', cap_id],
+          (dislikes) => dislikes - 1
+        )
+      }
+    }
+  })
+
+  const { mutate: dislike } = useMutation({
+    mutationFn: () =>
+      addReaction({ cap_id, user_id: currentUser?.id, reaction: false }),
+    onSuccess: () => {
+      setReaction(false)
+      queryClient.setQueryData(
+        ['dislikeCount', cap_id],
+        (dislikes) => dislikes + 1
+      )
+      if (reaction === true) {
+        queryClient.setQueryData(['likeCount', cap_id], (likes) => likes - 1)
+      }
+    }
+  })
+
+  const { mutate: removeReaction } = useMutation({
+    mutationFn: () => deleteReaction({ cap_id, user_id: currentUser?.id }),
+    onSuccess: () => {
+      setReaction(null)
+      if (reaction === true) {
+        queryClient.setQueryData(['likeCount', cap_id], (likes) => likes - 1)
+      }
+      if (reaction === false) {
+        queryClient.setQueryData(
+          ['dislikeCount', cap_id],
+          (dislikes) => dislikes + 1
+        )
+      }
+    }
+  })
+
   const likeHandler = (e) => {
     e.stopPropagation()
-    addReaction({ cap_id, user_id: currentUser?.id, reaction: true })
+
+    if (reaction === true) {
+      removeReaction()
+      return
+    }
+    like()
   }
+
   const dislikeHandler = (e) => {
     e.stopPropagation()
-    addReaction({ cap_id, user_id: currentUser?.id, reaction: false })
-  }
-  const deleteCapHandler = (e) => {
-    e.stopPropagation()
-    deleteCap({ cap_id })
+
+    if (reaction === false) {
+      removeReaction()
+      return
+    }
+    dislike()
   }
 
   const [deleting, setDeleting] = useState(false)
@@ -67,6 +137,15 @@ export default function CapActions({ cap }) {
     e.stopPropagation()
     setDeleting(false)
   }
+  const deleteCapHandler = (e) => {
+    e.stopPropagation()
+    deleteCap({ cap_id })
+  }
+
+  const likeActiveClass =
+    reaction === true ? 'fill-purple-500' : 'fill-zinc-500'
+  const dislikeActiveClass =
+    reaction === false ? 'fill-purple-500' : 'fill-zinc-500'
 
   return (
     <>
@@ -74,17 +153,17 @@ export default function CapActions({ cap }) {
         <li className="flex items-center">
           <button
             onClick={likeHandler}
-            className="p-2 fill-zinc-500 hover:fill-purple-500">
+            className={`p-2 hover:fill-purple-500 ${likeActiveClass}`}>
             <LikeIcon />
           </button>
           {likeCount > 0 && (
             <span className="mr-2 text-sm text-zinc-500">{likeCount}</span>
           )}
         </li>
-        <li className="flex items-center">
+        <li className="flex items-center fill-red-500">
           <button
             onClick={dislikeHandler}
-            className="p-2 fill-zinc-500 hover:fill-purple-500">
+            className={`p-2 hover:fill-purple-500 ${dislikeActiveClass}`}>
             <DislikeIcon />
           </button>
           {dislikeCount > 0 && (
