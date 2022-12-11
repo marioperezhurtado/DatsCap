@@ -3,6 +3,8 @@ import useAuth from '../../contexts/AuthContext'
 import useDb from '../../contexts/DbContext'
 
 import Modal from '../../layout/Modal/Modal'
+import ReplyIcon from '../../assets/ReplyIcon'
+import DeleteIcon from '../../assets/DeleteIcon'
 
 export default function CommentActions({ comment }) {
   const { currentUser } = useAuth()
@@ -19,15 +21,17 @@ export default function CommentActions({ comment }) {
   return (
     <>
       <ul className="flex">
-        <li>
-          <button>
-            <img src="/reply.svg" alt="Reply" className="p-2 w-9 h-9" />
+        <li className="flex items-center">
+          <button className="p-2 fill-zinc-500 hover:fill-purple-500">
+            <ReplyIcon />
           </button>
         </li>
         {currentUser?.id === comment.user_id && (
-          <li>
-            <button onClick={startDeleting}>
-              <img src="/delete.svg" alt="Delete" className="p-2 w-9 h-9" />
+          <li className="flex items-center">
+            <button
+              onClick={startDeleting}
+              className="p-2 fill-zinc-500 hover:fill-purple-500">
+              <DeleteIcon />
             </button>
           </li>
         )}

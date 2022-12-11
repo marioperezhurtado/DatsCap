@@ -4,6 +4,11 @@ import useAuth from '../../contexts/AuthContext'
 import useDb from '../../contexts/DbContext'
 
 import Modal from '../../layout/Modal/Modal'
+import LikeIcon from '../../assets/LikeIcon'
+import DislikeIcon from '../../assets/DislikeIcon'
+import CommentIcon from '../../assets/CommentIcon'
+import SaveIcon from '../../assets/SaveIcon'
+import DeleteIcon from '../../assets/DeleteIcon'
 
 export default function CapActions({ cap }) {
   const {
@@ -67,38 +72,44 @@ export default function CapActions({ cap }) {
     <>
       <ul className="relative flex items-center">
         <li className="flex items-center">
-          <button onClick={likeHandler}>
-            <img src="/like.svg" alt="Like" className="w-8 h-8 p-2" />
+          <button
+            onClick={likeHandler}
+            className="p-2 fill-zinc-500 hover:fill-purple-500">
+            <LikeIcon />
           </button>
           {likeCount > 0 && (
             <span className="mr-2 text-sm text-zinc-500">{likeCount}</span>
           )}
         </li>
         <li className="flex items-center">
-          <button onClick={dislikeHandler}>
-            <img src="/dislike.svg" alt="Dislike" className="w-8 h-8 p-2" />
+          <button
+            onClick={dislikeHandler}
+            className="p-2 fill-zinc-500 hover:fill-purple-500">
+            <DislikeIcon />
           </button>
           {dislikeCount > 0 && (
             <span className="mr-2 text-sm text-zinc-500">{dislikeCount}</span>
           )}
         </li>
         <li className="flex items-center">
-          <button>
-            <img src="/comment.svg" alt="Comment" className="p-2 w-9 h-9" />
+          <button className="p-2 fill-zinc-500 hover:fill-purple-500">
+            <CommentIcon />
           </button>
           {commentCount > 0 && (
             <span className="mr-2 text-sm text-zinc-500">{commentCount}</span>
           )}
         </li>
         <li className="flex items-center">
-          <button>
-            <img src="/save.svg" alt="Save" className="p-2 w-9 h-9" />
+          <button className="p-2 fill-zinc-500 hover:fill-purple-500">
+            <SaveIcon />
           </button>
         </li>
         {currentUser?.id === user_id && (
           <li className="flex items-center">
-            <button onClick={startDeleting}>
-              <img src="/delete.svg" alt="Delete" className="p-2 w-9 h-9" />
+            <button
+              onClick={startDeleting}
+              className="p-2 fill-zinc-500 hover:fill-purple-500">
+              <DeleteIcon />
             </button>
           </li>
         )}
