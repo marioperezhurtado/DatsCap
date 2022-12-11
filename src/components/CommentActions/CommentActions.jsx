@@ -6,7 +6,7 @@ import Modal from '../../layout/Modal/Modal'
 import ReplyIcon from '../../assets/ReplyIcon'
 import DeleteIcon from '../../assets/DeleteIcon'
 
-export default function CommentActions({ comment }) {
+export default function CommentActions({ comment, onToggleReply }) {
   const { currentUser } = useAuth()
   const { deleteComment } = useDb()
 
@@ -22,7 +22,9 @@ export default function CommentActions({ comment }) {
     <>
       <ul className="flex">
         <li className="flex items-center">
-          <button className="p-2 fill-zinc-500 hover:fill-purple-500">
+          <button
+            onClick={onToggleReply}
+            className="p-2 fill-zinc-500 hover:fill-purple-500">
             <ReplyIcon />
           </button>
         </li>

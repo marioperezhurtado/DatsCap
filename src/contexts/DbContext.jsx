@@ -54,11 +54,12 @@ export function DbProvider({ children }) {
     return data
   }
 
-  const addComment = async ({ cap_id, user_id, text }) => {
+  const addComment = async ({ cap_id, user_id, text, reply_to }) => {
     const { error } = await supabase.from('comments').insert({
       cap_id,
       user_id,
-      text
+      text,
+      reply_to
     })
 
     if (error) throw Error('Failed to add comment')

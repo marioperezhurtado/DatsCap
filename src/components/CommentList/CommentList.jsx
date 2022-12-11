@@ -15,11 +15,13 @@ export default function CommentList({ comments }) {
 
   const commentCount = comments.length
 
-  const commentItems = comments.map((c) => (
-    <li key={c.id}>
-      <CommentItem comment={c} />
-    </li>
-  ))
+  const commentItems = comments
+    .filter((c) => !c.reply_to)
+    .map((c) => (
+      <li key={c.id}>
+        <CommentItem comment={c} comments={comments} />
+      </li>
+    ))
 
   return (
     <ul className="flex flex-col gap-3 px-3 md:px-6 py-4 mt-5 md:mt-10 border rounded-md shadow-md bg-zinc-800 border-zinc-600 hover:shadow-xl">
