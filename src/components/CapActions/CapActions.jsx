@@ -102,7 +102,7 @@ export default function CapActions({ cap }) {
       if (reaction === false) {
         queryClient.setQueryData(
           ['dislikeCount', cap_id],
-          (dislikes) => dislikes + 1
+          (dislikes) => dislikes - 1
         )
       }
     }
@@ -153,7 +153,7 @@ export default function CapActions({ cap }) {
         <li className="flex items-center">
           <button
             onClick={likeHandler}
-            className={`p-2 hover:fill-purple-500 ${likeActiveClass}`}>
+            className={`p-2 md:hover:fill-purple-500 ${likeActiveClass}`}>
             <LikeIcon />
           </button>
           {likeCount > 0 && (
@@ -163,7 +163,7 @@ export default function CapActions({ cap }) {
         <li className="flex items-center fill-red-500">
           <button
             onClick={dislikeHandler}
-            className={`p-2 hover:fill-purple-500 ${dislikeActiveClass}`}>
+            className={`p-2 md:hover:fill-purple-500 ${dislikeActiveClass}`}>
             <DislikeIcon />
           </button>
           {dislikeCount > 0 && (
