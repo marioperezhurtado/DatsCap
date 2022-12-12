@@ -1,8 +1,16 @@
-
 # DatsCap
+
 Twitter-like web app, built w/ React, Tailwind and Supabase
 
+## Table of contents
 
+- [Tech Stack](#-tech-stack)
+- [Tools / Dependencies](#%EF%B8%8F-tools--dependencies)
+- [Installation](#-installation)
+- [Supabase Setup](#-supabase-setup)
+- [Environment Variables](#-environment-variables)
+- [Run locally](#-run-locally)
+- [Build for production](#%EF%B8%8F-build-for-production)
 
 ## 🧑🏻‍💻 Tech Stack
 
@@ -10,8 +18,7 @@ Twitter-like web app, built w/ React, Tailwind and Supabase
 
 **Server:** Supabase
 
-
-## ⚙️ Tools / Dependencies
+## 🔧 Tools / Dependencies
 
 **Bundler:** Vite
 
@@ -22,6 +29,7 @@ Twitter-like web app, built w/ React, Tailwind and Supabase
 **Linting:** ESLint
 
 **Integration with Supabase:** Supabase-js
+
 ## 🚀 Installation
 
 ```bash
@@ -29,7 +37,7 @@ git clone https://github.com/marioperezhurtado/DatsCap.git
 cd DatsCap
 npm install
 ```
-    
+
 ## ⚡ Supabase Setup
 
 https://supabase.com/docs
@@ -71,11 +79,15 @@ create table reactions (
 );
 ```
 
-- Add and configure authentication providers (google, github, discord)
-    https://app.supabase.com/project/^your-proyect^/auth/providers
+This is the resulting database schema:
+
+![Database Schema]('./doc/db-schema.png')
+
+- Enable and configure authentication providers (google, github, discord)
+  https://app.supabase.com/project/^your-proyect^/auth/providers
 
 - Create RLS (Row Level Security) authorization rules  
-    https://app.supabase.com/project/^your-proyect^/auth/policies
+   https://app.supabase.com/project/^your-proyect^/auth/policies
 
 ## 💬 Environment Variables
 
@@ -86,16 +98,15 @@ To run this project, you will need to add the following environment variables to
 `VITE_APP_SUPABASE_ANON_KEY='your-anon-key`
 
 Both can be found in https://app.supabase.com/project/^your-proyect^/settings/api
+
 ## 💻 Run locally
 
 ```bash
   npm run dev
 ```
 
-
 ## 🛠️ Build for production
 
 ```bash
   npm run build
 ```
-
