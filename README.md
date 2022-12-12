@@ -5,7 +5,7 @@ Twitter-like web app, built w/ React, Tailwind and Supabase
 ## Table of contents
 
 - [Tech Stack](#-tech-stack)
-- [Tools / Dependencies](#%EF%B8%8F-tools--dependencies)
+- [Tools / Dependencies](#-tools--dependencies)
 - [Installation](#-installation)
 - [Supabase Setup](#-supabase-setup)
 - [Environment Variables](#-environment-variables)
@@ -14,21 +14,21 @@ Twitter-like web app, built w/ React, Tailwind and Supabase
 
 ## 🧑🏻‍💻 Tech Stack
 
-**Client:** React, TailwindCSS
+**Client:** [React](https://es.reactjs.org/), [TailwindCSS](https://tailwindcss.com/)
 
-**Server:** Supabase
+**Server:** [Supabase](https://supabase.com/)
 
 ## 🔧 Tools / Dependencies
 
-**Bundler:** Vite
+**Bundler:** [Vite](https://vitejs.dev/)
 
-**Routing:** React Router
+**Routing:** [React Router](https://reactrouter.com/)
 
-**Server state management:** TanStack Query
+**Server state management:** [TanStack Query](https://tanstack.com/query/v4/)
 
-**Linting:** ESLint
+**Linting:** [ESLint](https://eslint.org/)
 
-**Integration with Supabase:** Supabase-js
+**Integration with Supabase:** [Supabase-js](https://github.com/supabase/supabase-js)
 
 ## 🚀 Installation
 
@@ -79,9 +79,9 @@ create table reactions (
 );
 ```
 
-This is the resulting database schema:
+Resulting database schema:
 
-![Database Schema]('./doc/db-schema.png')
+![Database schema](./doc/db-schema.png)
 
 - Enable and configure authentication providers (google, github, discord)
   https://app.supabase.com/project/^your-proyect^/auth/providers
