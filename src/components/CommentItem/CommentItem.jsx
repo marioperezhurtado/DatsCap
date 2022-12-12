@@ -46,7 +46,9 @@ export default function CommentItem({ comment, comments }) {
           <p className="ml-3">{date}</p>
           <CommentActions comment={comment} onToggleReply={toggleReplying} />
         </div>
-        {replying && <WriteReply reply_to={comment.id} />}
+        {replying && (
+          <WriteReply reply_to={comment.id} onReply={toggleReplying} />
+        )}
       </div>
       {replies && <Replies replies={replies} comments={comments} />}
     </>

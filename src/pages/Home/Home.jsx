@@ -18,7 +18,8 @@ export default function Home() {
     refetch
   } = useQuery({
     queryKey: ['latestCaps'],
-    queryFn: getLatestCaps
+    queryFn: getLatestCaps,
+    refetchOnWindowFocus: false
   })
 
   useEffect(() => {

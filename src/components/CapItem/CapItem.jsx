@@ -16,6 +16,7 @@ export default function CapItem({ cap }) {
   const { data: profile } = useQuery({
     queryKey: ['profile', user_id],
     queryFn: () => getProfile({ user_id }),
+    retry: 0,
     refetchOnWindowFocus: false
   })
 

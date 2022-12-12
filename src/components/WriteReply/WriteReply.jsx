@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query'
 import useAuth from '../../contexts/AuthContext'
 import useDb from '../../contexts/DbContext'
 
-export default function WriteReply({ reply_to }) {
+export default function WriteReply({ reply_to, onReply }) {
   const { currentUser } = useAuth()
   const { addComment } = useDb()
 
@@ -17,7 +17,10 @@ export default function WriteReply({ reply_to }) {
     mutationKey: ['addComment', id],
     mutationFn: ({ text }) =>
       addComment({ cap_id: id, user_id, text, reply_to }),
-    onSuccess: () => formRef.current.reset()
+    onSuccess: () => {
+      formRef.current.reset()
+      onReply()
+    }
   })
 
   const addCommentHandler = (e) => {
