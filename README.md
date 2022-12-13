@@ -75,11 +75,12 @@ create table comments (
 create table reactions (
   user_id uuid references profiles (id) primary key on delete cascade,
   cap_id uuid references caps (id) primary key on delete cascade,
-  reaction boolean not null
+  reaction boolean
+  favorite boolean
 );
 ```
 
-Resulting database schema:
+Resulting database schema: (Generated w/ [supabase-schema](https://github.com/zernonia/supabase-schema) )
 
 ![Database schema](./doc/db-schema.png)
 
@@ -95,7 +96,7 @@ To run this project, you will need to add the following environment variables to
 
 `VITE_APP_SUPABASE_URL='your-supabase-url'`
 
-`VITE_APP_SUPABASE_ANON_KEY='your-anon-key`
+`VITE_APP_SUPABASE_ANON_KEY='your-anon-key'`
 
 Both can be found in https://app.supabase.com/project/^your-proyect^/settings/api
 
