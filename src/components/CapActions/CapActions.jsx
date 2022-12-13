@@ -7,7 +7,7 @@ import Modal from '../../layout/Modal/Modal'
 import LikeIcon from '../../assets/LikeIcon'
 import DislikeIcon from '../../assets/DislikeIcon'
 import CommentIcon from '../../assets/CommentIcon'
-import SaveIcon from '../../assets/SaveIcon'
+import FavoriteIcon from '../../assets/FavoriteIcon'
 import DeleteIcon from '../../assets/DeleteIcon'
 
 export default function CapActions({ cap }) {
@@ -16,8 +16,10 @@ export default function CapActions({ cap }) {
     getDislikeCount,
     getCommentCount,
     getUserReaction,
-    addReaction,
-    deleteReaction,
+    addLike,
+    deleteLike,
+    addFavorite,
+    deleteFavorite,
     deleteCap
   } = useDb()
 
@@ -55,16 +57,20 @@ export default function CapActions({ cap }) {
   })
 
   const [reaction, setReaction] = useState(null)
+  const [favorite, setFavorite] = useState(false)
 
   useEffect(() => {
-    setReaction(userReaction)
-  }, [userReaction])
+    setReaction(userReaction?.like)
+  }, [userReaction?.like])
+
+  useEffect(() => {
+    setFavorite(userReaction?.favorite)
+  }, [userReaction?.favorite])
 
   const queryClient = useQueryClient()
 
   const { mutate: like } = useMutation({
-    mutationFn: () =>
-      addReaction({ cap_id, user_id: currentUser?.id, reaction: true }),
+    mutationFn: () => addLike({ cap_id, user_id: currentUser?.id, like: true }),
     onSuccess: () => {
       setReaction(true)
       queryClient.setQueryData(['likeCount', cap_id], (likes) => likes + 1)
@@ -79,7 +85,7 @@ export default function CapActions({ cap }) {
 
   const { mutate: dislike } = useMutation({
     mutationFn: () =>
-      addReaction({ cap_id, user_id: currentUser?.id, reaction: false }),
+      addLike({ cap_id, user_id: currentUser?.id, like: false }),
     onSuccess: () => {
       setReaction(false)
       queryClient.setQueryData(
@@ -92,8 +98,8 @@ export default function CapActions({ cap }) {
     }
   })
 
-  const { mutate: removeReaction } = useMutation({
-    mutationFn: () => deleteReaction({ cap_id, user_id: currentUser?.id }),
+  const { mutate: removeLike } = useMutation({
+    mutationFn: () => deleteLike({ cap_id, user_id: currentUser?.id }),
     onSuccess: () => {
       setReaction(null)
       if (reaction === true) {
@@ -112,7 +118,7 @@ export default function CapActions({ cap }) {
     e.stopPropagation()
 
     if (reaction === true) {
-      removeReaction()
+      removeLike()
       return
     }
     like()
@@ -122,10 +128,34 @@ export default function CapActions({ cap }) {
     e.stopPropagation()
 
     if (reaction === false) {
-      removeReaction()
+      removeLike()
       return
     }
     dislike()
+  }
+
+  const { mutate: activeFavorite } = useMutation({
+    mutationFn: () => addFavorite({ cap_id, user_id: currentUser?.id }),
+    onSuccess: () => {
+      setFavorite(true)
+    }
+  })
+
+  const { mutate: removeFavorite } = useMutation({
+    mutationFn: () => deleteFavorite({ cap_id, user_id: currentUser?.id }),
+    onSuccess: () => {
+      setFavorite(false)
+    }
+  })
+
+  const toggleFavorite = (e) => {
+    e.stopPropagation()
+
+    if (favorite) {
+      removeFavorite()
+      return
+    }
+    activeFavorite()
   }
 
   const [deleting, setDeleting] = useState(false)
@@ -146,6 +176,7 @@ export default function CapActions({ cap }) {
     reaction === true ? 'fill-purple-500' : 'fill-zinc-500'
   const dislikeActiveClass =
     reaction === false ? 'fill-purple-500' : 'fill-zinc-500'
+  const favoriteActiveClass = favorite ? 'fill-purple-500' : 'fill-zinc-500'
 
   return (
     <>
@@ -179,8 +210,10 @@ export default function CapActions({ cap }) {
           )}
         </li>
         <li className="flex items-center">
-          <button className="p-2 fill-zinc-500 hover:fill-purple-500">
-            <SaveIcon />
+          <button
+            onClick={toggleFavorite}
+            className={`p-2 hover:fill-purple-500 ${favoriteActiveClass}`}>
+            <FavoriteIcon />
           </button>
         </li>
         {currentUser?.id === user_id && (

@@ -98,39 +98,58 @@ export function DbProvider({ children }) {
   const getUserReaction = async ({ cap_id, user_id }) => {
     const { data, error } = await supabase
       .from('reactions')
-      .select('reaction')
+      .select('like, favorite')
       .match({ cap_id, user_id })
       .limit(1)
       .single()
 
     if (error) throw Error('Failed to get user reaction')
-    return data?.reaction
+    return data
   }
 
-  const addReaction = async ({ cap_id, user_id, reaction }) => {
+  const addLike = async ({ cap_id, user_id, like }) => {
     const { error } = await supabase.from('reactions').upsert({
       cap_id,
       user_id,
-      reaction
+      like
     })
 
     if (error) throw Error('Failed to add reaction')
   }
 
-  const deleteReaction = async ({ cap_id, user_id }) => {
+  const deleteLike = async ({ cap_id, user_id }) => {
     const { error } = await supabase
       .from('reactions')
-      .delete()
+      .update({ like: null })
       .match({ cap_id, user_id })
 
     if (error) throw Error('Failed to delete reaction')
   }
 
+  const addFavorite = async ({ cap_id, user_id }) => {
+    const { error } = await supabase.from('reactions').upsert({
+      cap_id,
+      user_id,
+      favorite: true
+    })
+
+    if (error) throw Error('Failed to add to favorites')
+  }
+
+  const deleteFavorite = async ({ cap_id, user_id }) => {
+    const { error } = await supabase
+      .from('reactions')
+      .update({ favorite: null })
+      .match({ cap_id, user_id })
+
+    if (error) throw Error('Failed to remove from favorites')
+  }
+
   const getLikeCount = async ({ cap_id }) => {
     const { count, error } = await supabase
       .from('reactions')
-      .select('*', { count: 'exact', head: true })
-      .match({ cap_id, reaction: true })
+      .select('like', { count: 'exact', head: true })
+      .match({ cap_id, like: true })
 
     if (error) throw Error('Failed to get like count')
     return count
@@ -139,8 +158,8 @@ export function DbProvider({ children }) {
   const getDislikeCount = async ({ cap_id }) => {
     const { count, error } = await supabase
       .from('reactions')
-      .select('*', { count: 'exact', head: true })
-      .match({ cap_id, reaction: false })
+      .select('like', { count: 'exact', head: true })
+      .match({ cap_id, like: false })
 
     if (error) throw Error('Failed to get dislike count')
     return count
@@ -194,11 +213,13 @@ export function DbProvider({ children }) {
     getProfile,
     updateProfile,
     getUserReaction,
-    addReaction,
-    deleteReaction,
     getLikeCount,
     getDislikeCount,
     getCommentCount,
+    addLike,
+    deleteLike,
+    addFavorite,
+    deleteFavorite,
     capsListener,
     commentsListener
   }
